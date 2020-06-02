@@ -3,8 +3,9 @@ import { jsx, css } from "@emotion/core"
 import tw from "twin.macro"
 
 import React, { useState } from "react"
-import { useHistory } from "react-router-dom"
 import { useSelector, useDispatch } from "react-redux"
+import { useHistory } from "react-router-dom"
+import { login } from "../../../authSlice"
 
 const ModalLogin = props => {
   const { loginModalBool, setLoginModalBool } = props
@@ -13,6 +14,12 @@ const ModalLogin = props => {
 
   const dispatch = useDispatch()
   const history = useHistory()
+
+  const attemptLogin = e => {
+    e.preventDefault()
+    dispatch(login({ username, password }))
+    history.push("/home")
+  }
 
   return (
     <div tw="flex flex-col text-center h-full w-64 bg-gray-200 text-gray-900 rounded-lg shadow-lg p-2 md:p-4 lg:p-6">
@@ -23,7 +30,7 @@ const ModalLogin = props => {
         </button>
       </div>
       <div tw="flex flex-col justify-around my-1">
-        <form tw="">
+        <form onSubmit={attemptLogin} tw="">
           <input
             tw="my-1"
             value={username}
@@ -34,6 +41,7 @@ const ModalLogin = props => {
             tw="my-1"
             value={password}
             onChange={e => setPassword(e.target.value)}
+            type="password"
             placeholder="password"
           />
           <button
