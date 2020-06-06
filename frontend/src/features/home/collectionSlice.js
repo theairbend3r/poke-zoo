@@ -10,14 +10,21 @@ export const collectionSlice = createSlice({
   name: "collection",
   initialState: initialState,
   reducers: {
+    setInitialCollection: (state, action) => {
+      state.collectionList = action.payload
+      console.log(action.payload)
+    },
+
     // create a collection only if the same name does not already exists.
     create: (state, action) => {
       if (action.payload !== "") {
+        console.log(action.payload)
         state.collectionList.push({
-          id: uuidv4(),
-          name: action.payload,
+          collectionId: action.payload.collectionId,
+          collectionName: action.payload.collectionName,
           pokemons: [],
         })
+
         // const doesCollectionNameExist = state.collectionList.find(
         //   cn => cn.name === action.payload
         // )
@@ -97,6 +104,20 @@ export const collectionSlice = createSlice({
   },
 })
 
+export const fetchCollection = username => {
+  return async (dispatch, getState) => {
+    try {
+      const response = await axios.get(`api/collection/display/${username}`, {
+        headers: { "auth-token": window.localStorage.getItem("token") },
+      })
+
+      dispatch(setInitialCollection(response.data))
+    } catch (e) {
+      console.log(e)
+    }
+  }
+}
+
 export const createCollection = collectionObj => {
   return async dispatch => {
     try {
@@ -109,7 +130,13 @@ export const createCollection = collectionObj => {
       const collectionName =
         response.data.pokeCollection[response.data.pokeCollection.length - 1]
           .collectionName
-      dispatch(create(collectionName))
+
+      const collectionId =
+        response.data.pokeCollection[response.data.pokeCollection.length - 1]
+          .collectionId
+      dispatch(
+        create({ collectionId: collectionId, collectionName: collectionName })
+      )
     } catch (e) {
       console.log(e)
     }
@@ -117,5 +144,11 @@ export const createCollection = collectionObj => {
 }
 
 export const selectorCollection = state => state.collection.collectionList
-export const { create, add, remove, edit } = collectionSlice.actions
+export const {
+  setInitialCollection,
+  create,
+  add,
+  remove,
+  edit,
+} = collectionSlice.actions
 export default collectionSlice.reducer

@@ -12,7 +12,9 @@ const CollectionCard = props => {
   const { collectionObj } = props
   const dispatch = useDispatch()
   // Initialise state for renaming collection.
-  const [collectionName, setCollectionName] = useState(collectionObj.name)
+  const [collectionName, setCollectionName] = useState(
+    collectionObj.collectionName
+  )
   // Edit state is initialised with a "no"
   const [isEdit, setIsEdit] = useState("no")
   // Initialise state for removing pokemon from a collection.
@@ -27,10 +29,10 @@ const CollectionCard = props => {
   const handleEditToggle = () => {
     if (isEdit === "no") {
       setIsEdit("yes")
-      setCollectionName(collectionObj.name)
+      setCollectionName(collectionObj.collectionName)
     } else {
       setIsEdit("no")
-      setCollectionName(collectionObj.name)
+      setCollectionName(collectionObj.collectionName)
       setPokemonList(collectionObj.pokemons)
     }
   }
@@ -73,7 +75,7 @@ const CollectionCard = props => {
               edit
             </button>
             <button
-              onClick={() => handleRemoveCollection(collectionObj.id)}
+              onClick={() => handleRemoveCollection(collectionObj.collectionId)}
               tw="mx-1 p-1 rounded hover:text-white hover:font-semibold hover:p-1"
             >
               delete
@@ -82,7 +84,7 @@ const CollectionCard = props => {
           <div tw="flex flex-row justify-around pt-4 pb-12 px-2">
             <div tw="my-auto text-xl md:text-lg">
               <h3 tw="bg-purple-600 whitespace-pre-line rounded px-4 py-2 md:p-2 text-center font-bold text-lg sm:text-xl md:text-lg">
-                {collectionObj.name}
+                {collectionObj.collectionName}
               </h3>
             </div>
             <div tw="w-2/3 my-auto text-center sm:text-lg md:text-base">

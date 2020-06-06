@@ -1,23 +1,34 @@
 /** @jsx jsx */
 import { jsx, css } from "@emotion/core"
 import tw from "twin.macro"
+import { v4 as uuidv4 } from "uuid"
 
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 
 import CollectionCard from "./components/CollectionCard"
 import { useSelector, useDispatch } from "react-redux"
-import { createCollection, selectorCollection } from "./collectionSlice"
+import {
+  createCollection,
+  fetchCollection,
+  selectorCollection,
+} from "./collectionSlice"
 import { selectorAuth } from "../../authSlice"
 
 const Collection = () => {
   const [collectionName, setCollectionName] = useState("")
   const dispatch = useDispatch()
-  const collection = useSelector(selectorCollection)
+  const collectionState = useSelector(selectorCollection)
   const authState = useSelector(selectorAuth)
+
+  // Fetch collection by dispatching the action with username.
+  useEffect(() => {
+    dispatch(fetchCollection(authState.username))
+  }, [dispatch])
 
   const handleCollectionCreation = e => {
     e.preventDefault()
     const newCollection = {
+      collectionId: uuidv4(),
       collectionName: collectionName,
       username: authState.username,
       pokemons: [],
@@ -46,8 +57,8 @@ const Collection = () => {
         </form>
       </section>
       <section tw="md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-2">
-        {collection.map(col => (
-          <CollectionCard key={col.id} collectionObj={col} />
+        {collectionState.map(col => (
+          <CollectionCard key={col.collectionId} collectionObj={col} />
         ))}
       </section>
     </div>

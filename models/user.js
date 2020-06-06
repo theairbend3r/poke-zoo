@@ -1,6 +1,11 @@
 const mongoose = require("mongoose")
 
 const collectionSchema = mongoose.Schema({
+  collectionId: {
+    type: String,
+    unique: true,
+    required: true,
+  },
   collectionName: {
     type: String,
     unique: true,

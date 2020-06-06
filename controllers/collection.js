@@ -17,6 +17,7 @@ collectionRouter.post("/create", verify, async (req, res) => {
 
   // create a new collection
   const newCollection = {
+    collectionId: body.collectionId,
     collectionName: body.collectionName,
     pokemons: body.pokemons,
   }
@@ -34,7 +35,7 @@ collectionRouter.post("/create", verify, async (req, res) => {
 })
 
 // DISPLAY COLLECTION
-collectionRouter.get("/display", verify, async (req, res) => {
+collectionRouter.get("/display/:username", verify, async (req, res) => {
   const username = req.params.username
 
   // Find relevant document based on username.
