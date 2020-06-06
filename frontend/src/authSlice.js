@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit"
-import { useHistory } from "react-router-dom"
+import axios from "axios"
 
 const initialState = {
   isUserLoggedIn: false,
@@ -11,18 +11,47 @@ export const authSlice = createSlice({
   initialState: initialState,
   reducers: {
     login: (state, action) => {
-      const { username, password } = action.payload
-      if (username === "test" && password === "test") {
-        state.isUserLoggedIn = true
-        state.username = username
-      }
+      const user = action.payload
+
+      if (!user) return alert("Login failed. Incorrect username or password.")
+
+      state.username = user.username
+      state.isUserLoggedIn = true
     },
-    logout: state => {
-      state.isUserLoggedIn = false
+    logout: (state, action) => {
+      // window.localStorage.removeItem("loggedInUser")
       state.username = ""
+      state.isUserLoggedIn = false
+    },
+    signup: (state, action) => {
+      const user = action.payload
+      state.username = user.data.username
+      state.isUserLoggedIn = true
     },
   },
 })
+
+export const tryLogin = (username, password) => {
+  return async dispatch => {
+    try {
+      const response = await axios.post("/api/auth/login", {
+        username: username,
+        password: password,
+      })
+
+      const user = {
+        token: response.headers["auth-token"],
+        username: response.data.username,
+      }
+
+      // window.localStorage.setItem("token", response.headers["auth-token"])
+
+      dispatch(login(user))
+    } catch (e) {
+      alert("Incorrect Username/Password.")
+    }
+  }
+}
 
 export const selectorAuth = state => state.auth
 export const { login, logout } = authSlice.actions

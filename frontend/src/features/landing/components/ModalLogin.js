@@ -4,8 +4,8 @@ import tw from "twin.macro"
 
 import React, { useState } from "react"
 import { useSelector, useDispatch } from "react-redux"
-import { useHistory } from "react-router-dom"
-import { login } from "../../../authSlice"
+import { useHistory, useLocation } from "react-router-dom"
+import { tryLogin } from "../../../authSlice"
 
 const ModalLogin = props => {
   const { loginModalBool, setLoginModalBool } = props
@@ -13,12 +13,15 @@ const ModalLogin = props => {
   const [password, setPassword] = useState("")
 
   const dispatch = useDispatch()
-  const history = useHistory()
+  let history = useHistory()
+  let location = useLocation()
+
+  let { from } = location.state || { from: { pathname: "/" } }
 
   const attemptLogin = e => {
     e.preventDefault()
-    dispatch(login({ username, password }))
-    history.push("/home")
+    dispatch(tryLogin(username, password))
+    history.replace(from)
   }
 
   return (

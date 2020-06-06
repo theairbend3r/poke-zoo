@@ -4,7 +4,6 @@ import styled from "@emotion/styled"
 import tw from "twin.macro"
 
 import React, { useState, useEffect } from "react"
-import { useLocation } from "react-router-dom"
 
 import mobile_phone_wallpaper from "./assets/images/pikachu_phone.jpg"
 import desktop_wallpaper from "./assets/images/pikachu.jpg"
@@ -19,8 +18,6 @@ const ButtonBase = styled.button(
 const Landing = () => {
   const [loginModalBool, setLoginModalBool] = useState(false)
   const [signupModalBool, setSignupModalBool] = useState(false)
-
-  const location = useLocation()
 
   const imageUrl =
     window.innerWidth >= 650 ? desktop_wallpaper : mobile_phone_wallpaper
@@ -44,13 +41,11 @@ const Landing = () => {
       <div tw="flex flex-col text-white">
         {signupModalBool === true ? (
           <ModalSignup
-            fromState={location.state && location.state.from}
             signupModalBool={signupModalBool}
             setSignupModalBool={setSignupModalBool}
           />
         ) : loginModalBool === true ? (
           <ModalLogin
-            fromState={location.state && location.state.from}
             loginModalBool={loginModalBool}
             setLoginModalBool={setLoginModalBool}
           />
