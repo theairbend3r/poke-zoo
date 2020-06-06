@@ -44,7 +44,7 @@ export const tryLogin = (username, password) => {
         username: response.data.username,
       }
 
-      // window.localStorage.setItem("token", response.headers["auth-token"])
+      window.localStorage.setItem("token", response.headers["auth-token"])
 
       dispatch(login(user))
     } catch (e) {
@@ -61,7 +61,7 @@ export const trySignup = (username, password) => {
         password: password,
       })
 
-      // window.localStorage.setItem("token", response.headers["auth-token"])
+      window.localStorage.setItem("token", response.headers["auth-token"])
 
       dispatch(signup(response))
     } catch (e) {

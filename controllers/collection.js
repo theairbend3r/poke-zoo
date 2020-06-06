@@ -34,7 +34,7 @@ collectionRouter.post("/create", verify, async (req, res) => {
 })
 
 // DISPLAY COLLECTION
-collectionRouter.get("/display/:username", verify, async (req, res) => {
+collectionRouter.get("/display", verify, async (req, res) => {
   const username = req.params.username
 
   // Find relevant document based on username.

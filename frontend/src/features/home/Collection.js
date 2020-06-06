@@ -6,16 +6,24 @@ import React, { useState } from "react"
 
 import CollectionCard from "./components/CollectionCard"
 import { useSelector, useDispatch } from "react-redux"
-import { create, selectorCollection } from "./collectionSlice"
+import { createCollection, selectorCollection } from "./collectionSlice"
+import { selectorAuth } from "../../authSlice"
 
 const Collection = () => {
   const [collectionName, setCollectionName] = useState("")
   const dispatch = useDispatch()
   const collection = useSelector(selectorCollection)
+  const authState = useSelector(selectorAuth)
 
   const handleCollectionCreation = e => {
     e.preventDefault()
-    dispatch(create(collectionName))
+    const newCollection = {
+      collectionName: collectionName,
+      username: authState.username,
+      pokemons: [],
+    }
+
+    dispatch(createCollection(newCollection))
     setCollectionName("")
   }
 

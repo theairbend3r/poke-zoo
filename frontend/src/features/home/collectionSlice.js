@@ -1,7 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit"
-
-// intialize a counter for collection id.
-let collectionId = 1
+import axios from "axios"
+import { v4 as uuidv4 } from "uuid"
 
 const initialState = {
   collectionList: [],
@@ -14,22 +13,26 @@ export const collectionSlice = createSlice({
     // create a collection only if the same name does not already exists.
     create: (state, action) => {
       if (action.payload !== "") {
-        const doesCollectionNameExist = state.collectionList.find(
-          cn => cn.name === action.payload
-        )
-
-        if (!doesCollectionNameExist) {
-          state.collectionList.push({
-            id: collectionId,
-            name: action.payload,
-            pokemons: [],
-          })
-          collectionId++
-        } else {
-          alert(
-            `Collection name "${action.payload}" already exists. Please choose another name.`
-          )
-        }
+        state.collectionList.push({
+          id: uuidv4(),
+          name: action.payload,
+          pokemons: [],
+        })
+        // const doesCollectionNameExist = state.collectionList.find(
+        //   cn => cn.name === action.payload
+        // )
+        // if (!doesCollectionNameExist) {
+        //   state.collectionList.push({
+        //     id: collectionId,
+        //     name: action.payload,
+        //     pokemons: [],
+        //   })
+        //   collectionId++
+        // } else {
+        //   alert(
+        //     `Collection name "${action.payload}" already exists. Please choose another name.`
+        //   )
+        // }
       } else {
         alert("Collection name cannot be blank.")
       }
@@ -93,6 +96,25 @@ export const collectionSlice = createSlice({
     },
   },
 })
+
+export const createCollection = collectionObj => {
+  return async dispatch => {
+    try {
+      const response = await axios.post(
+        "api/collection/create",
+        collectionObj,
+        { headers: { "auth-token": window.localStorage.getItem("token") } }
+      )
+
+      const collectionName =
+        response.data.pokeCollection[response.data.pokeCollection.length - 1]
+          .collectionName
+      dispatch(create(collectionName))
+    } catch (e) {
+      console.log(e)
+    }
+  }
+}
 
 export const selectorCollection = state => state.collection.collectionList
 export const { create, add, remove, edit } = collectionSlice.actions
