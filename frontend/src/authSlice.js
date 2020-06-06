@@ -53,6 +53,23 @@ export const tryLogin = (username, password) => {
   }
 }
 
+export const trySignup = (username, password) => {
+  return async dispatch => {
+    try {
+      const response = await axios.post("/api/auth/signup", {
+        username: username,
+        password: password,
+      })
+
+      // window.localStorage.setItem("token", response.headers["auth-token"])
+
+      dispatch(signup(response))
+    } catch (e) {
+      alert(e.response.data.msg)
+    }
+  }
+}
+
 export const selectorAuth = state => state.auth
-export const { login, logout } = authSlice.actions
+export const { login, logout, signup } = authSlice.actions
 export default authSlice.reducer
