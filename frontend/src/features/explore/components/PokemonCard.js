@@ -4,17 +4,37 @@ import tw from "twin.macro"
 import styled from "@emotion/styled/macro"
 
 import PokeTypeColorElement from "./pokeTypeColor"
-import PokeFormForCollection from "./PokeFormForCollection"
 import PokeDetailsUI from "./PokeDetailsUI"
 
 import { useState } from "react"
 import { useSelector, useDispatch } from "react-redux"
-import { add, selectorCollection } from "../../home/collectionSlice"
+import { addPokemon, selectorCollection } from "../../home/collectionSlice"
+import { selectorAuth } from "../../../authSlice"
 
 const PokemonCard = props => {
   // access the collection state.
-  const collection = useSelector(selectorCollection)
+  const collectionState = useSelector(selectorCollection)
+  const authState = useSelector(selectorAuth)
   const dispatch = useDispatch()
+
+  const [currentCollection, setCurrentCollection] = useState({
+    collectionId: "",
+    pokemon: "",
+  })
+
+  const handleChange = e => {
+    setCurrentCollection({
+      ...currentCollection,
+      collectionId: e.target.value,
+      pokemon: pokemonName,
+      username: authState.username,
+    })
+  }
+
+  const handleSubmit = (e, pokeId) => {
+    e.preventDefault()
+    dispatch(addPokemon(currentCollection))
+  }
 
   // extract details to render a pokemonCard component.
   const {
@@ -26,33 +46,6 @@ const PokemonCard = props => {
     pokemonBaseExperience,
     pokemonSprite,
   } = props
-
-  // create a local state here to edit a collection. We can change the name of collection
-  // and pokemon in it.
-  const [pokemonCollectionInput, setPokemonCollectionInput] = useState({
-    id: "",
-    pokemon: "",
-  })
-
-  //
-  const handlePokemonToCollection = e => {
-    setPokemonCollectionInput({
-      ...pokemonCollectionInput,
-      id: Number(e.target.value),
-      pokemon: pokemonName,
-    })
-  }
-
-  // add pokemon to a collection.
-  const addPokemonToCollection = e => {
-    e.preventDefault()
-    setPokemonCollectionInput({
-      ...pokemonCollectionInput,
-      id: "",
-      pokemon: "",
-    })
-    dispatch(add(pokemonCollectionInput))
-  }
 
   return (
     <div tw="flex flex-row justify-around items-center bg-blue-800 p-2 rounded-lg overflow-x-auto">
@@ -79,13 +72,28 @@ const PokemonCard = props => {
           <PokeDetailsUI keyAttribute="weight" val={pokemonWeight} />
           <PokeDetailsUI keyAttribute="base-exp" val={pokemonBaseExperience} />
         </div>
-        <PokeFormForCollection
-          addPokemonToCollection={addPokemonToCollection}
-          pokemonCollectionInput={pokemonCollectionInput}
-          handlePokemonToCollection={handlePokemonToCollection}
-          collection={collection}
-          pokemonId={pokemonId}
-        />
+        <form onSubmit={handleSubmit}>
+          <select
+            value={currentCollection.collectionId}
+            onChange={handleChange}
+          >
+            <option value={"NULL"}>...</option>
+            {collectionState.map(collection => (
+              <option
+                key={`${collection.collectionId}-${pokemonId}`}
+                value={collection.collectionId}
+              >
+                {collection.collectionName}
+              </option>
+            ))}
+          </select>
+          <button
+            tw="rounded border border-white text-gray-100 hover:bg-gray-100 hover:font-semibold hover:text-gray-900 px-4 py-1 ml-2"
+            type="submit"
+          >
+            add
+          </button>
+        </form>
       </div>
     </div>
   )

@@ -11,7 +11,6 @@ collectionRouter.post("/create", verify, async (req, res) => {
   const user = await User.findOne({ username: body.username })
   // If no document is found based on username, return 400.
   if (!user) {
-    console.log(body)
     return res.status(400).json({ msg: "Could not find the user." })
   }
 
@@ -42,7 +41,6 @@ collectionRouter.get("/display/:username", verify, async (req, res) => {
   const user = await User.findOne({ username: username })
   // If no document is found based on username, return 400.
   if (!user) {
-    console.log(body)
     return res.status(400).json({ msg: "Could not find the user." })
   }
 
@@ -50,6 +48,30 @@ collectionRouter.get("/display/:username", verify, async (req, res) => {
 
   try {
     res.status(200).json(collection)
+  } catch (e) {
+    res.status(400).json({ msg: e })
+  }
+})
+
+// DELETE COLLECTION
+collectionRouter.post("/delete", verify, async (req, res) => {
+  const body = req.body
+
+  // Find relevant document based on username.
+  const user = await User.findOne({ username: body.username })
+  // If no document is found based on username, return 400.
+  if (!user) {
+    return res.status(400).json({ msg: "Could not find the user." })
+  }
+
+  user.pokeCollection = user.pokeCollection.filter(
+    col => col.collectionId !== body.collectionId
+  )
+
+  // Save document
+  try {
+    const updatedUser = await user.save()
+    res.status(200).json(body.collectionId)
   } catch (e) {
     res.status(400).json({ msg: e })
   }
@@ -69,6 +91,7 @@ collectionRouter.post("/addpoke", verify, async (req, res) => {
   const collection = user.pokeCollection.find(
     col => col.collectionId === body.collectionId
   )
+
   // If not subdoc (based on collection id) is found, return 400,
   if (!collection) return res.status(400).json({ msg: "Collection not found." })
 
@@ -78,7 +101,8 @@ collectionRouter.post("/addpoke", verify, async (req, res) => {
   // Save document
   try {
     const updatedUser = await user.save()
-    res.status(200).json(updatedUser)
+    const returnObj = { pokemon: body.pokemon, collectionId: body.collectionId }
+    res.status(200).json(returnObj)
   } catch (e) {
     res.status(400).json({ msg: e })
   }

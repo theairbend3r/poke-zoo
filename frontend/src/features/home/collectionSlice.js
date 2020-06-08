@@ -1,6 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit"
 import axios from "axios"
-import { v4 as uuidv4 } from "uuid"
 
 const initialState = {
   collectionList: [],
@@ -12,13 +11,11 @@ export const collectionSlice = createSlice({
   reducers: {
     setInitialCollection: (state, action) => {
       state.collectionList = action.payload
-      console.log(action.payload)
     },
 
     // create a collection only if the same name does not already exists.
     create: (state, action) => {
       if (action.payload !== "") {
-        console.log(action.payload)
         state.collectionList.push({
           collectionId: action.payload.collectionId,
           collectionName: action.payload.collectionName,
@@ -45,14 +42,14 @@ export const collectionSlice = createSlice({
       }
     },
     // add pokemon to a collection
-    add: (state, action) => {
+    addPoke: (state, action) => {
       // get the index of the selected collection in the collectionList array using the collection ID.
       const collectionListIndex = state.collectionList.findIndex(
-        x => x.id === action.payload.id
+        x => x.collectionId === action.payload.collectionId
       )
 
       const collectionName = state.collectionList.find(
-        c => c.id === action.payload.id
+        c => c.collectionId === action.payload.collectionId
       ).name
 
       // If collection exists, then push the pokemon in it.
@@ -74,9 +71,10 @@ export const collectionSlice = createSlice({
         }
       }
     },
+
     // remove a collection.
     remove: (state, action) => {
-      const collectionIdToRemove = action.payload.id
+      const collectionIdToRemove = action.payload.collectionId
 
       const collectionIdRemoveIndex = state.collectionList.findIndex(
         col => col.id === collectionIdToRemove
@@ -104,6 +102,7 @@ export const collectionSlice = createSlice({
   },
 })
 
+// fetch all collections
 export const fetchCollection = username => {
   return async (dispatch, getState) => {
     try {
@@ -118,6 +117,7 @@ export const fetchCollection = username => {
   }
 }
 
+// create a collection - async
 export const createCollection = collectionObj => {
   return async dispatch => {
     try {
@@ -143,6 +143,36 @@ export const createCollection = collectionObj => {
   }
 }
 
+// remove a collection - async
+export const removeCollection = collectionObj => {
+  return async dispatch => {
+    try {
+      const response = await axios.post(
+        "api/collection/delete",
+        collectionObj,
+        { headers: { "auth-token": window.localStorage.getItem("token") } }
+      )
+      dispatch(remove({ collectionId: response.collectionId }))
+    } catch (e) {
+      console.log(e)
+    }
+  }
+}
+
+// add pokemon to a collection - async
+export const addPokemon = pokeObj => {
+  return async dispatch => {
+    try {
+      const response = await axios.post("api/collection/addpoke", pokeObj, {
+        headers: { "auth-token": window.localStorage.getItem("token") },
+      })
+      dispatch(addPoke(response.data))
+    } catch (e) {
+      console.log(e)
+    }
+  }
+}
+
 export const selectorCollection = state => state.collection.collectionList
 export const {
   setInitialCollection,
@@ -150,5 +180,6 @@ export const {
   add,
   remove,
   edit,
+  addPoke,
 } = collectionSlice.actions
 export default collectionSlice.reducer

@@ -3,14 +3,19 @@ import { jsx, css } from "@emotion/core"
 import tw from "twin.macro"
 import React, { useState } from "react"
 
-import { useDispatch } from "react-redux"
-import { remove, edit } from "../collectionSlice"
+import { useDispatch, useSelector } from "react-redux"
+import { removeCollection, edit } from "../collectionSlice"
+
+import { selectorAuth } from "../../../authSlice"
 
 const CollectionCard = props => {
   // Get the collectionObj using props for displaying pokemon in
   // collection cards.
   const { collectionObj } = props
+
   const dispatch = useDispatch()
+  const authState = useSelector(selectorAuth)
+
   // Initialise state for renaming collection.
   const [collectionName, setCollectionName] = useState(
     collectionObj.collectionName
@@ -22,7 +27,12 @@ const CollectionCard = props => {
 
   // Remove collection from the store.
   const handleRemoveCollection = collectionId => {
-    dispatch(remove({ id: collectionId }))
+    dispatch(
+      removeCollection({
+        username: authState.username,
+        collectionId: collectionId,
+      })
+    )
   }
 
   // Toggle edit functionality of a card.
