@@ -129,12 +129,17 @@ collectionRouter.post("/editcollection", verify, async (req, res) => {
   // Rename collection
   collection.collectionName = body.newCollectionName
 
+  // Update pokemons in the collection
+  console.log(body.editedPokemonList)
+  collection.pokemons = body.editedPokemonList
+
   // Save document
   try {
     const updatedUser = await user.save()
     const returnObj = {
       collectionName: body.newCollectionName,
       collectionId: body.collectionId,
+      pokemonList: body.editedPokemonList,
     }
     res.status(200).json(returnObj)
   } catch (e) {

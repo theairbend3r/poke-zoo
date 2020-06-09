@@ -88,7 +88,7 @@ export const collectionSlice = createSlice({
     edit: (state, action) => {
       const collectionIdToEdit = action.payload.collectionId
       const editedName = action.payload.collectionName
-      // const editedPokemonList = action.payload.editedPokemonList
+      const editedPokemonList = action.payload.pokemonList
 
       const collectionIdEditIndex = state.collectionList.findIndex(
         col => col.collectionId === collectionIdToEdit
@@ -96,7 +96,7 @@ export const collectionSlice = createSlice({
 
       if (collectionIdEditIndex !== -1) {
         state.collectionList[collectionIdEditIndex].collectionName = editedName
-        // state.collectionList[collectionIdEditIndex].pokemons = editedPokemonList
+        state.collectionList[collectionIdEditIndex].pokemons = editedPokemonList
       }
     },
   },
@@ -109,7 +109,6 @@ export const fetchCollection = username => {
       const response = await axios.get(`api/collection/display/${username}`, {
         headers: { "auth-token": window.localStorage.getItem("token") },
       })
-
       dispatch(setInitialCollection(response.data))
     } catch (e) {
       console.log(e)
