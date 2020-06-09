@@ -86,17 +86,17 @@ export const collectionSlice = createSlice({
     },
     // Edit collection name and pokemon in it.
     edit: (state, action) => {
-      const collectionIdToEdit = action.payload.id
-      const editedName = action.payload.editedName
-      const editedPokemonList = action.payload.editedPokemonList
+      const collectionIdToEdit = action.payload.collectionId
+      const editedName = action.payload.collectionName
+      // const editedPokemonList = action.payload.editedPokemonList
 
       const collectionIdEditIndex = state.collectionList.findIndex(
-        col => col.id === collectionIdToEdit
+        col => col.collectionId === collectionIdToEdit
       )
 
       if (collectionIdEditIndex !== -1) {
-        state.collectionList[collectionIdEditIndex].name = editedName
-        state.collectionList[collectionIdEditIndex].pokemons = editedPokemonList
+        state.collectionList[collectionIdEditIndex].collectionName = editedName
+        // state.collectionList[collectionIdEditIndex].pokemons = editedPokemonList
       }
     },
   },
@@ -167,6 +167,24 @@ export const addPokemon = pokeObj => {
         headers: { "auth-token": window.localStorage.getItem("token") },
       })
       dispatch(addPoke(response.data))
+    } catch (e) {
+      console.log(e)
+    }
+  }
+}
+
+// edit collection -  async
+export const editCollection = collectionObj => {
+  return async dispatch => {
+    try {
+      const response = await axios.post(
+        "api/collection/editcollection",
+        collectionObj,
+        {
+          headers: { "auth-token": window.localStorage.getItem("token") },
+        }
+      )
+      dispatch(edit(response.data))
     } catch (e) {
       console.log(e)
     }

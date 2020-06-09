@@ -4,7 +4,7 @@ import tw from "twin.macro"
 import React, { useState } from "react"
 
 import { useDispatch, useSelector } from "react-redux"
-import { removeCollection, edit } from "../collectionSlice"
+import { removeCollection, editCollection } from "../collectionSlice"
 
 import { selectorAuth } from "../../../authSlice"
 
@@ -62,9 +62,10 @@ const CollectionCard = props => {
   // This involves renaming a collection and editing the pokemon list.
   const handleSave = collectionId => {
     dispatch(
-      edit({
-        id: collectionId,
-        editedName: collectionName,
+      editCollection({
+        collectionId: collectionId,
+        username: authState.username,
+        newCollectionName: collectionName,
         editedPokemonList: pokemonList,
       })
     )
@@ -125,7 +126,7 @@ const CollectionCard = props => {
                 cancel
               </button>
               <button
-                onClick={() => handleSave(collectionObj.id)}
+                onClick={() => handleSave(collectionObj.collectionId)}
                 tw="mx-1 p-1 rounded hover:text-white hover:font-semibold hover:p-1"
               >
                 save

@@ -108,4 +108,38 @@ collectionRouter.post("/addpoke", verify, async (req, res) => {
   }
 })
 
+//  ADD POKEMON TO COLLECTION
+collectionRouter.post("/editcollection", verify, async (req, res) => {
+  const body = req.body
+
+  // Find relevant document based on username.
+  const user = await User.findOne({ username: body.username })
+
+  // If no document is found based on username, return 400.
+  if (!user) return res.status(400).json({ msg: "Could not find the user." })
+
+  // Find the subdocument based on collection id.
+  const collection = user.pokeCollection.find(
+    col => col.collectionId === body.collectionId
+  )
+
+  // If not subdoc (based on collection id) is found, return 400,
+  if (!collection) return res.status(400).json({ msg: "Collection not found." })
+
+  // Rename collection
+  collection.collectionName = body.newCollectionName
+
+  // Save document
+  try {
+    const updatedUser = await user.save()
+    const returnObj = {
+      collectionName: body.newCollectionName,
+      collectionId: body.collectionId,
+    }
+    res.status(200).json(returnObj)
+  } catch (e) {
+    res.status(400).json({ msg: e })
+  }
+})
+
 module.exports = collectionRouter
