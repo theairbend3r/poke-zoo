@@ -73,7 +73,6 @@ export const trySignup = (username, password) => {
 
       dispatch(signup(user))
     } catch (e) {
-      // console.log(e.response.data.msg)
       alert(e.response.data.msg[0].message)
     }
   }

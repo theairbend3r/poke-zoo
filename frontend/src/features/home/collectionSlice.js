@@ -137,6 +137,7 @@ export const createCollection = collectionObj => {
         create({ collectionId: collectionId, collectionName: collectionName })
       )
     } catch (e) {
+      alert(e.response.data.msg)
       console.log(e)
     }
   }
@@ -167,6 +168,7 @@ export const addPokemon = pokeObj => {
       })
       dispatch(addPoke(response.data))
     } catch (e) {
+      alert(e.response.data.msg)
       console.log(e)
     }
   }

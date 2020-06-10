@@ -43,7 +43,6 @@ authRouter.post("/signup", async (req, res) => {
       .header("auth-token", token)
       .json({ token: token, username: body.username })
   } catch (e) {
-    console.log(e)
     res.status(400).json({ msg: e })
   }
 })
@@ -66,7 +65,6 @@ authRouter.post("/login", async (req, res) => {
   if (!validatePassword)
     return res.status(400).json({ msg: "Username or Password is incorrect." })
 
-  console.log(user)
   // Create JWT
   const token = jwt.sign({ id: user.id }, config.JWT_SECRET, {
     expiresIn: 60 * 60 * 1, // expires in 1 hour

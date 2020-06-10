@@ -7,12 +7,26 @@ const User = require("../models/user")
 collectionRouter.post("/create", verify, async (req, res) => {
   const body = req.body
 
+  if (body.collectionName === "")
+    return res.status(400).json({
+      msg: "Collection cannot be blank. Please choose another name.",
+    })
+
   // Find relevant document based on username.
   const user = await User.findOne({ username: body.username })
   // If no document is found based on username, return 400.
   if (!user) {
     return res.status(400).json({ msg: "Could not find the user." })
   }
+
+  collectionNameExists = user.pokeCollection.find(
+    x => x.collectionName === body.collectionName
+  )
+
+  if (collectionNameExists)
+    return res.status(400).json({
+      msg: "Collection Name already exists. Please choose another name.",
+    })
 
   // create a new collection
   const newCollection = {
@@ -92,6 +106,14 @@ collectionRouter.post("/addpoke", verify, async (req, res) => {
     col => col.collectionId === body.collectionId
   )
 
+  pokemonExists = collection.pokemons.find(poke => poke === body.pokemon)
+
+  if (pokemonExists)
+    return res.status(400).json({
+      msg:
+        "Pokemon already exists in collection. Please choose another pokemon.",
+    })
+
   // If not subdoc (based on collection id) is found, return 400,
   if (!collection) return res.status(400).json({ msg: "Collection not found." })
 
@@ -108,7 +130,7 @@ collectionRouter.post("/addpoke", verify, async (req, res) => {
   }
 })
 
-//  ADD POKEMON TO COLLECTION
+//  EDIT COLLECTION
 collectionRouter.post("/editcollection", verify, async (req, res) => {
   const body = req.body
 
