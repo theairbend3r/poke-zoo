@@ -25,7 +25,10 @@ export const authSlice = createSlice({
     },
     signup: (state, action) => {
       const user = action.payload
-      state.username = user.data.username
+
+      if (!user) return alert("Sign up failed. Please try again.")
+
+      state.username = user.username
       state.isUserLoggedIn = true
     },
   },
@@ -61,11 +64,17 @@ export const trySignup = (username, password) => {
         password: password,
       })
 
+      const user = {
+        token: response.headers["auth-token"],
+        username: response.data.username,
+      }
+
       window.localStorage.setItem("token", response.headers["auth-token"])
 
-      dispatch(signup(response))
+      dispatch(signup(user))
     } catch (e) {
-      alert(e.response.data.msg)
+      // console.log(e.response.data.msg)
+      alert(e.response.data.msg[0].message)
     }
   }
 }

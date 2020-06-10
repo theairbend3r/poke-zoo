@@ -18,7 +18,9 @@ authRouter.post("/signup", async (req, res) => {
   // Check if username already exists in db.
   const usernameExists = await User.findOne({ username: body.username })
   if (usernameExists)
-    return res.status(400).json({ msg: "Username already exists." })
+    return res
+      .status(400)
+      .json({ msg: [{ message: "Username already exists." }] })
 
   // Hash password
   const saltRounds = 10
@@ -30,10 +32,18 @@ authRouter.post("/signup", async (req, res) => {
     password: passwordHash,
   })
 
+  // Create JWT
+  const token = jwt.sign({ id: newUser.id }, config.JWT_SECRET, {
+    expiresIn: 60 * 60 * 1, // expires in 1 hour
+  })
+
   try {
     const savedUser = await newUser.save()
-    res.json(savedUser)
+    res
+      .header("auth-token", token)
+      .json({ token: token, username: body.username })
   } catch (e) {
+    console.log(e)
     res.status(400).json({ msg: e })
   }
 })
@@ -56,15 +66,19 @@ authRouter.post("/login", async (req, res) => {
   if (!validatePassword)
     return res.status(400).json({ msg: "Username or Password is incorrect." })
 
+  console.log(user)
   // Create JWT
   const token = jwt.sign({ id: user.id }, config.JWT_SECRET, {
     expiresIn: 60 * 60 * 1, // expires in 1 hour
   })
 
-  // send token in the response header.
-  res
-    .header("auth-token", token)
-    .json({ token: token, username: body.username })
+  try {
+    res
+      .header("auth-token", token)
+      .json({ token: token, username: body.username })
+  } catch (e) {
+    res.status(400).json({ msg: e })
+  }
 })
 
 module.exports = authRouter

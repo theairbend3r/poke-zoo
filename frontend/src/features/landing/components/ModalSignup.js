@@ -54,7 +54,7 @@ const ModalSignup = props => {
             type="submit"
             tw="my-1 p-1 rounded bg-gray-800 text-gray-100 hover:bg-gray-900"
           >
-            log in
+            sign up
           </button>
         </form>
       </div>

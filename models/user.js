@@ -1,18 +1,21 @@
 const mongoose = require("mongoose")
 
-const collectionSchema = mongoose.Schema({
-  collectionId: {
-    type: String,
-    unique: true,
-    required: true,
+const collectionSchema = mongoose.Schema(
+  {
+    collectionId: {
+      type: String,
+      unique: true,
+      required: true,
+    },
+    collectionName: {
+      type: String,
+      unique: true,
+      required: true,
+    },
+    pokemons: [],
   },
-  collectionName: {
-    type: String,
-    unique: true,
-    required: true,
-  },
-  pokemons: [],
-})
+  { timestamps: true }
+)
 
 const userSchema = mongoose.Schema(
   {
