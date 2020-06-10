@@ -19,9 +19,9 @@ export const authSlice = createSlice({
       state.isUserLoggedIn = true
     },
     logout: (state, action) => {
-      // window.localStorage.removeItem("loggedInUser")
       state.username = ""
       state.isUserLoggedIn = false
+      window.localStorage.removeItem("token")
     },
     signup: (state, action) => {
       const user = action.payload
