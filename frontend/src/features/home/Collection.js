@@ -12,13 +12,18 @@ import {
   fetchCollection,
   selectorCollection,
 } from "./collectionSlice"
-import { selectorAuth } from "../../authSlice"
+import { selectorAuth, tryAutoLogin } from "../../authSlice"
 
 const Collection = () => {
   const [collectionName, setCollectionName] = useState("")
   const dispatch = useDispatch()
   const collectionState = useSelector(selectorCollection)
   const authState = useSelector(selectorAuth)
+
+  // Try autologin
+  useEffect(() => {
+    dispatch(tryAutoLogin())
+  }, [])
 
   // Fetch collection by dispatching the action with username.
   useEffect(() => {

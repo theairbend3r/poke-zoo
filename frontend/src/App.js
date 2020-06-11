@@ -77,7 +77,6 @@ const AuthRoute = ({ component: Component, ...rest }) => {
 
 const App = () => {
   const dispatch = useDispatch()
-  const authState = useSelector(selectorAuth)
 
   useEffect(() => {
     dispatch(tryAutoLogin())
