@@ -21,22 +21,6 @@ export const collectionSlice = createSlice({
           collectionName: action.payload.collectionName,
           pokemons: [],
         })
-
-        // const doesCollectionNameExist = state.collectionList.find(
-        //   cn => cn.name === action.payload
-        // )
-        // if (!doesCollectionNameExist) {
-        //   state.collectionList.push({
-        //     id: collectionId,
-        //     name: action.payload,
-        //     pokemons: [],
-        //   })
-        //   collectionId++
-        // } else {
-        //   alert(
-        //     `Collection name "${action.payload}" already exists. Please choose another name.`
-        //   )
-        // }
       } else {
         alert("Collection name cannot be blank.")
       }

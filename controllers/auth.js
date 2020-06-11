@@ -79,4 +79,25 @@ authRouter.post("/login", async (req, res) => {
   }
 })
 
+// AUTO LOGIN ON BROWSER REFRESH
+authRouter.get("/autologin", async (req, res) => {
+  const token = req.header("auth-token")
+
+  // Check if token exists
+  if (!token) return res.status(401).json({ msg: "Access Denied." })
+
+  try {
+    const verified = jwt.verify(token, config.JWT_SECRET)
+    userId = verified.id
+
+    const user = await User.findOne({ _id: userId })
+    if (!user)
+      return res.status(400).json({ msg: "Username or Password is incorrect." })
+
+    res.status(200).json({ username: user.username, token: token })
+  } catch (e) {
+    res.status(400).json({ msg: "Invalid Token." })
+  }
+})
+
 module.exports = authRouter

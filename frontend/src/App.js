@@ -12,10 +12,10 @@ import {
   useLocation,
 } from "react-router-dom"
 
-import { selectorAuth } from "./authSlice"
+import { selectorAuth, tryAutoLogin } from "./authSlice"
 
-import React, { Children } from "react"
-import { useSelector } from "react-redux"
+import React, { useEffect } from "react"
+import { useSelector, useDispatch } from "react-redux"
 
 import Navbar from "./components/Navbar"
 import Landing from "./features/landing/Landing"
@@ -24,6 +24,7 @@ import Explore from "./features/explore/Explore"
 
 const ProtectedRoute = ({ component: Component, ...rest }) => {
   const authState = useSelector(selectorAuth)
+
   return (
     <Route
       {...rest}
@@ -49,6 +50,7 @@ const ProtectedRoute = ({ component: Component, ...rest }) => {
 
 const AuthRoute = ({ component: Component, ...rest }) => {
   const authState = useSelector(selectorAuth)
+
   const location = useLocation()
   return (
     <Route
@@ -72,28 +74,15 @@ const AuthRoute = ({ component: Component, ...rest }) => {
     />
   )
 }
-// function ProtectedRoute({ children, authState, ...rest }) {
-//   return (
-//     <Route
-//       {...rest}
-//       render={({ location }) =>
-//         authState.isUserLoggedIn ? (
-//           children
-//         ) : (
-//           <Redirect
-//             to={{
-//               pathname: "/",
-//               state: { from: location },
-//             }}
-//           />
-//         )
-//       }
-//     />
-//   )
-// }
 
 const App = () => {
+  const dispatch = useDispatch()
   const authState = useSelector(selectorAuth)
+
+  useEffect(() => {
+    dispatch(tryAutoLogin())
+  }, [])
+
   return (
     <Router>
       <div tw="flex flex-col bg-green-100 min-h-screen">
@@ -102,15 +91,6 @@ const App = () => {
           <AuthRoute exact path="/" component={Landing} />
           <ProtectedRoute path="/home" component={Home} />
           <ProtectedRoute path="/explore" component={Explore} />
-          {/* <Route exact path="/">
-            <Landing />
-          </Route>
-          <ProtectedRoute path="/home" authState={authState}>
-            <Home />
-          </ProtectedRoute>
-          <ProtectedRoute path="/explore" authState={authState}>
-            <Explore />
-          </ProtectedRoute> */}
           <Route path="*" component={() => "404 Not found."} />
         </Switch>
       </div>
