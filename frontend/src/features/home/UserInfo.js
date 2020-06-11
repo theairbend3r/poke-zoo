@@ -16,6 +16,10 @@ const UserInfo = () => {
   const collections = useSelector(selectorCollection)
   const currentDate = dateTime.toDateString()
 
+  const numPokemon = collections.reduce((accumulator, poke) => {
+    return accumulator + poke.pokemons.length
+  }, 0)
+
   return (
     <div tw="flex flex-row justify-around items-center bg-blue-800 py-8 px-2 md:py-10 md:px-4">
       <section tw="w-1/3 text-center border border-yellow-400 text-gray-100 rounded-full p-4 mr-1">
@@ -27,15 +31,15 @@ const UserInfo = () => {
       <section tw="w-2/3 text-left text-white p-4 rounded ml-1 sm:text-lg md:text-xl lg:text-2xl md:flex md:flex-row md:justify-center">
         <p tw="m-1 p-2">
           <span tw="border border-yellow-400 text-gray-100 px-4 py-2 m-1 rounded-full">
-            XXX
+            {numPokemon}
           </span>
-          coins
+          Total Pokemons
         </p>
         <p tw="m-1 p-2">
           <span tw="border border-yellow-400 text-gray-100 px-4 py-2 m-1 rounded-full">
             {collections.length}
           </span>
-          collections
+          Total Collections
         </p>
       </section>
     </div>

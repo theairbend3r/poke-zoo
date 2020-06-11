@@ -34,6 +34,7 @@ const PokemonCard = props => {
   const handleSubmit = (e, pokeId) => {
     e.preventDefault()
     dispatch(addPokemon(currentCollection))
+    setCurrentCollection({ collectionId: "", pokemon: "" })
   }
 
   // extract details to render a pokemonCard component.
