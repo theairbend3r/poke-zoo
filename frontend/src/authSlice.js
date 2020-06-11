@@ -34,6 +34,32 @@ export const authSlice = createSlice({
   },
 })
 
+// window.localStorage.setItem(
+//   "token",
+//   autoLoginResponse.headers["auth-token"]
+// )
+
+export const tryAutoLogin = () => {
+  return async dispatch => {
+    try {
+      const autoLoginResponse = await axios.get("/api/auth/autologin", {
+        headers: { "auth-token": window.localStorage.getItem("token") },
+      })
+
+      if (autoLoginResponse) {
+        const user = {
+          token: autoLoginResponse.headers["auth-token"],
+          username: autoLoginResponse.data.username,
+        }
+
+        dispatch(login(user))
+      }
+    } catch (e) {
+      console.log("")
+    }
+  }
+}
+
 export const tryLogin = (username, password) => {
   return async dispatch => {
     try {
