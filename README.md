@@ -12,6 +12,7 @@ This webapp is hosted on `Heroku`.
 - Frontend - `React.js`, `Emotion.js`, `TailwindCSS`
 - Database - `MongoDB`
 - Authentication - `JsonWebToken`
+- API - `pokeAPI`
 
 ## Screenshots
 
