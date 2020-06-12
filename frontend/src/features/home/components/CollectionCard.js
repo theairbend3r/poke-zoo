@@ -49,7 +49,9 @@ const CollectionCard = props => {
 
   // Remove pokemon from a collection.
   const handleRemovePokemon = pokeName => {
-    const newPokemonList = pokemonList.filter(poke => poke !== pokeName)
+    const newPokemonList = pokemonList.filter(
+      poke => poke.pokeName !== pokeName
+    )
     setPokemonList(newPokemonList)
   }
 
@@ -102,10 +104,17 @@ const CollectionCard = props => {
               <ul>
                 {collectionObj.pokemons.map(poke => (
                   <li
-                    key={poke}
-                    tw="text-gray-900 font-semibold bg-gray-100 p-1 rounded m-1"
+                    key={poke.pokeName}
+                    tw="flex flex-row justify-between items-center text-gray-900 font-semibold bg-gray-100 p-1 rounded m-1"
                   >
-                    {poke}
+                    <div>
+                      <img
+                        tw="h-10 w-10 md:h-16 md:w-16 lg:h-16 lg:w-16"
+                        src={poke.pokeUrl}
+                      />
+                    </div>
+                    <div>{poke.pokeName}</div>
+                    <div></div>
                   </li>
                 ))}
               </ul>
@@ -144,12 +153,12 @@ const CollectionCard = props => {
                 <ul>
                   {pokemonList.map(poke => (
                     <li
-                      key={poke}
+                      key={poke.pokeName}
                       tw="flex flex-row justify-between items-center text-gray-900 mx-4 font-semibold bg-gray-100 p-1 my-1 rounded"
                     >
-                      <p>{poke}</p>
+                      <p>{poke.pokeName}</p>
                       <button
-                        onClick={() => handleRemovePokemon(poke)}
+                        onClick={() => handleRemovePokemon(poke.pokeName)}
                         tw="font-semibold bg-red-800 m-1 px-2 py-1 rounded-full text-gray-100"
                       >
                         x

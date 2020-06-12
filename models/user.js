@@ -1,5 +1,18 @@
 const mongoose = require("mongoose")
 
+const pokeSchema = mongoose.Schema({
+  pokeName: {
+    type: String,
+    unique: true,
+    required: true,
+  },
+  pokeUrl: {
+    type: String,
+    unique: true,
+    required: true,
+  },
+})
+
 const collectionSchema = mongoose.Schema(
   {
     collectionId: {
@@ -12,7 +25,7 @@ const collectionSchema = mongoose.Schema(
       unique: true,
       required: true,
     },
-    pokemons: [],
+    pokemons: [pokeSchema],
   },
   { timestamps: true }
 )

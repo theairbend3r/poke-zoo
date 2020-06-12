@@ -18,23 +18,36 @@ const PokemonCard = props => {
   const dispatch = useDispatch()
 
   const [currentCollection, setCurrentCollection] = useState({
+    username: authState.username,
     collectionId: "",
-    pokemon: "",
+    pokemon: {
+      pokeName: "",
+      pokeUrl: "",
+    },
   })
 
   const handleChange = e => {
     setCurrentCollection({
       ...currentCollection,
-      collectionId: e.target.value,
-      pokemon: pokemonName,
       username: authState.username,
+      collectionId: e.target.value,
+      pokemon: {
+        pokeName: pokemonName,
+        pokeUrl: pokemonSprite,
+      },
     })
   }
 
   const handleSubmit = (e, pokeId) => {
     e.preventDefault()
     dispatch(addPokemon(currentCollection))
-    setCurrentCollection({ collectionId: "", pokemon: "" })
+    setCurrentCollection({
+      collectionId: "",
+      pokemon: {
+        pokeName: "",
+        pokeUrl: "",
+      },
+    })
   }
 
   // extract details to render a pokemonCard component.
