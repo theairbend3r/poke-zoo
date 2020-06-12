@@ -21,7 +21,7 @@ const Navbar = () => {
     <div>
       <nav tw="flex flex-row p-2 md:p-4 justify-between items-center text-gray-200 bg-purple-700 sm:text-lg">
         <NavLink tw="hover:text-white hover:font-semibold" to="/home">
-          <h3> POKEDEX</h3>
+          <h3> PokeZoo</h3>
         </NavLink>
         {authState.isUserLoggedIn && (
           <ul tw="flex flex-row">
