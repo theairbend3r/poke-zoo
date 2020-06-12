@@ -15,15 +15,15 @@ This webapp is hosted on `Heroku`.
 
 ### Landing Page
 
-![Landing Page]("https://github.com/theairbend3r/poke-zoo/blob/master/screenshots/poke-zoo-landing.jpg")
+![Landing Page]("https://raw.githubusercontent.com/theairbend3r/poke-zoo/master/screenshots/poke-zoo-landing.jpg")
 
 ### Home Page
 
-![Home Page]("https://github.com/theairbend3r/poke-zoo/blob/master/screenshots/poke-zoo-home.png")
+![Home Page]("https://raw.githubusercontent.com/theairbend3r/poke-zoo/master/screenshots/poke-zoo-home.png")
 
 ### Explore Page
 
-![Explore Page]("https://github.com/theairbend3r/poke-zoo/blob/master/screenshots/poke-zoo-explore.png")
+![Explore Page]("https://raw.githubusercontent.com/theairbend3r/poke-zoo/master/screenshots/poke-zoo-explore.png")
 
 ## App Flow
 
