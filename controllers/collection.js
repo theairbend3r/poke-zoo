@@ -85,7 +85,7 @@ collectionRouter.post("/delete", verify, async (req, res) => {
   // Save document
   try {
     const updatedUser = await user.save()
-    res.status(200).json(body.collectionId)
+    res.status(200).json({ collectionId: body.collectionId })
   } catch (e) {
     res.status(400).json({ msg: e })
   }
@@ -106,24 +106,36 @@ collectionRouter.post("/addpoke", verify, async (req, res) => {
     col => col.collectionId === body.collectionId
   )
 
-  pokemonExists = collection.pokemons.find(poke => poke === body.pokemon)
-
-  if (pokemonExists)
-    return res.status(400).json({
-      msg:
-        "Pokemon already exists in collection. Please choose another pokemon.",
-    })
-
   // If not subdoc (based on collection id) is found, return 400,
   if (!collection) return res.status(400).json({ msg: "Collection not found." })
 
+  if (collection.pokemons.length !== 0) {
+    // Check if Pokemon already exists in collection
+    pokemonExists = collection.pokemons.find(
+      poke => poke.pokeName === body.pokemon.pokeName
+    )
+
+    if (pokemonExists)
+      return res.status(400).json({
+        msg:
+          "Pokemon already exists in collection. Please choose another pokemon.",
+      })
+  }
+
   // Add pokemon to collection.
-  collection.pokemons.push(body.pokemon)
+  collection.pokemons.push({
+    pokeName: body.pokemon.pokeName,
+    pokeUrl: body.pokemon.pokeUrl,
+  })
 
   // Save document
   try {
     const updatedUser = await user.save()
-    const returnObj = { pokemon: body.pokemon, collectionId: body.collectionId }
+    const returnObj = {
+      pokeName: body.pokemon.pokeName,
+      pokeUrl: body.pokemon.pokeUrl,
+      collectionId: body.collectionId,
+    }
     res.status(200).json(returnObj)
   } catch (e) {
     res.status(400).json({ msg: e })

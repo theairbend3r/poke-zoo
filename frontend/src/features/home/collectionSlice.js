@@ -41,17 +41,18 @@ export const collectionSlice = createSlice({
         if (
           // If a pokemon with the same name already exists, do not put into the list.
           // Instead, alert the user.
-          state.collectionList[collectionListIndex].pokemons.includes(
-            action.payload.pokemon
+          state.collectionList[collectionListIndex].pokemons.find(
+            poke => poke.pokeName === action.payload.pokeName
           )
         ) {
           alert(
-            `${action.payload.pokemon} already exists in collection "${collectionName}".`
+            `${action.payload.pokeName} already exists in collection "${collectionName}".`
           )
         } else {
-          state.collectionList[collectionListIndex].pokemons.push(
-            action.payload.pokemon
-          )
+          state.collectionList[collectionListIndex].pokemons.push({
+            pokeName: action.payload.pokeName,
+            pokeUrl: action.payload.pokeUrl,
+          })
         }
       }
     },
@@ -61,7 +62,7 @@ export const collectionSlice = createSlice({
       const collectionIdToRemove = action.payload.collectionId
 
       const collectionIdRemoveIndex = state.collectionList.findIndex(
-        col => col.id === collectionIdToRemove
+        col => col.collectionId === collectionIdToRemove
       )
 
       if (collectionIdRemoveIndex !== -1) {
@@ -129,6 +130,7 @@ export const createCollection = collectionObj => {
 
 // remove a collection - async
 export const removeCollection = collectionObj => {
+  console.log(collectionObj)
   return async dispatch => {
     try {
       const response = await axios.post(
@@ -136,7 +138,7 @@ export const removeCollection = collectionObj => {
         collectionObj,
         { headers: { "auth-token": window.localStorage.getItem("token") } }
       )
-      dispatch(remove({ collectionId: response.collectionId }))
+      dispatch(remove({ collectionId: response.data.collectionId }))
     } catch (e) {
       console.log(e)
     }
