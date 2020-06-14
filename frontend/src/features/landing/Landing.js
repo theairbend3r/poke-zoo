@@ -35,7 +35,7 @@ const Landing = () => {
     >
       <div>
         <h1 tw="text-white text-4xl md:text-4xl lg:text-6xl font-bold">
-          Pokedex
+          PokeZoo
         </h1>
       </div>
       <div tw="flex flex-col text-white">
