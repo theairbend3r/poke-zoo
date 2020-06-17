@@ -36,6 +36,11 @@ const Navbar = () => {
               </NavLink>
             </li>
             <li tw="mx-1 md:mx-2">
+              <NavLink tw="hover:text-white hover:font-semibold" to="/find">
+                find
+              </NavLink>
+            </li>
+            <li tw="mx-1 md:mx-2">
               <button
                 onClick={handleLogout}
                 tw="p-1 text-sm rounded bg-gray-200 text-gray-900 hover:bg-gray-800 hover:text-white hover:font-semibold"

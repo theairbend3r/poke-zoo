@@ -11,6 +11,7 @@ const SearchPokemon = () => {
   const dispatch = useDispatch()
 
   const [searchTerm, setSearchTerm] = useState("")
+  const [uploadedImage, setUploadedImage] = useState([])
 
   // dispatch search action.
   const handleSearchTermChange = e => {
@@ -19,16 +20,18 @@ const SearchPokemon = () => {
   }
 
   return (
-    <div tw="flex flex-row bg-blue-800 py-8 px-2 md:py-10 md:px-4">
-      <section tw="text-lg md:text-xl">
-        <h3 tw="text-white"> Search Pokemon </h3>
-        <form>
-          <input
-            tw="rounded"
-            value={searchTerm}
-            onChange={handleSearchTermChange}
-          />
-        </form>
+    <div tw="bg-blue-800 py-8 px-2 md:py-10 md:px-4">
+      <section tw="flex flex-row">
+        <div tw="mx-2 text-center">
+          <h3 tw="text-gray-100"> Search Pokemon by Name </h3>
+          <form>
+            <input
+              tw="rounded"
+              value={searchTerm}
+              onChange={handleSearchTermChange}
+            />
+          </form>
+        </div>
       </section>
     </div>
   )

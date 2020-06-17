@@ -21,6 +21,7 @@ import Navbar from "./components/Navbar"
 import Landing from "./features/landing/Landing"
 import Home from "./features/home/Home"
 import Explore from "./features/explore/Explore"
+import Find from "./features/find/Find"
 
 const ProtectedRoute = ({ component: Component, ...rest }) => {
   const authState = useSelector(selectorAuth)
@@ -80,7 +81,7 @@ const App = () => {
 
   useEffect(() => {
     dispatch(tryAutoLogin())
-  }, [])
+  }, [dispatch])
 
   return (
     <Router>
@@ -90,6 +91,7 @@ const App = () => {
           <AuthRoute exact path="/" component={Landing} />
           <ProtectedRoute path="/home" component={Home} />
           <ProtectedRoute path="/explore" component={Explore} />
+          <ProtectedRoute path="/find" component={Find} />
           <Route path="*" component={() => "404 Not found."} />
         </Switch>
       </div>
