@@ -3,9 +3,18 @@ import { jsx, css } from "@emotion/core"
 import tw, { styled } from "twin.macro"
 
 import React, { useState } from "react"
+import { useDispatch } from "react-redux"
+import { storeInputImage } from "./findSlice"
 
 const UploadImageComponent = props => {
-  const { handleImageUpload } = props
+  const dispatch = useDispatch()
+
+  const handleImageUpload = e => {
+    dispatch(
+      storeInputImage({ uploadedImage: URL.createObjectURL(e.target.files[0]) })
+    )
+  }
+
   return (
     <div tw="text-gray-100 px-1 py-4">
       <input
@@ -54,6 +63,7 @@ const ImageLinkComponent = props => {
 
 const InputListButton = props => {
   const { activeButton, ...others } = props
+
   return (
     <div>
       {activeButton === true ? (
@@ -70,11 +80,6 @@ const InputListButton = props => {
 
 const ImageInput = () => {
   const [inputType, setInputType] = useState("upload_image")
-  const [uploadedImage, setUploadedImage] = useState([])
-
-  const handleImageUpload = e => {
-    setUploadedImage(URL.createObjectURL(e.target.files[0]))
-  }
 
   return (
     <div tw="text-gray-100 bg-blue-800 py-8 px-2 md:py-10 md:px-4">
@@ -109,7 +114,7 @@ const ImageInput = () => {
           </ul>
           <div tw="text-center">
             {inputType === "upload_image" ? (
-              <UploadImageComponent handleImageUpload={handleImageUpload} />
+              <UploadImageComponent />
             ) : inputType === "capture_image" ? (
               <CaptureImageComponent />
             ) : inputType === "image_link" ? (

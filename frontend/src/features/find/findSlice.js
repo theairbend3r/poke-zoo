@@ -17,5 +17,5 @@ export const findSlice = createSlice({
 })
 
 export const selectorFind = state => state.find
-export const {} = findSlice.actions
+export const { storeInputImage } = findSlice.actions
 export default findSlice.reducer
