@@ -4,9 +4,6 @@ import tw from "twin.macro"
 
 import React from "react"
 
-import { useDispatch } from "react-redux"
-import { storeInputImage } from "../findSlice"
-
 const InputListButton = props => {
   const { activeButton, ...others } = props
 
@@ -14,11 +11,11 @@ const InputListButton = props => {
     <div>
       {activeButton === true ? (
         <button
-          tw="border-b-2 sm:border-l-2 border-gray-100 font-bold text-white hover:font-semibold p-1"
+          tw="border-b-2 border-gray-100 font-bold text-white hover:font-semibold p-1 mx-2"
           {...others}
         />
       ) : (
-        <button tw="text-gray-100 hover:font-semibold p-1" {...others} />
+        <button tw="text-gray-200 hover:font-semibold p-1 mx-2" {...others} />
       )}
     </div>
   )

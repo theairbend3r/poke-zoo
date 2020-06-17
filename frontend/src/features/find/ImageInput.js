@@ -17,8 +17,8 @@ const ImageInput = () => {
     <div tw="text-gray-100 bg-blue-800 py-8 px-2 md:py-10 md:px-4">
       <section tw="flex flex-col">
         <h3 tw=" text-lg md:text-xl text-center">Search Pokemon by Image</h3>
-        <div tw="flex flex-col sm:flex-row sm:justify-center sm:items-center">
-          <ul tw="flex flex-row sm:flex-col text-gray-100 justify-center text-sm sm:text-base">
+        <div tw="flex flex-col">
+          <ul tw="flex flex-row text-gray-100 justify-center text-sm sm:text-base">
             <li>
               <InputListButton
                 activeButton={inputType === "upload_image"}
