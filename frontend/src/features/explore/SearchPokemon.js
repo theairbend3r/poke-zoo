@@ -21,7 +21,7 @@ const SearchPokemon = () => {
 
   return (
     <div tw="bg-blue-800 py-8 px-2 md:py-10 md:px-4">
-      <section tw="flex flex-row">
+      <section tw="flex flex-row justify-center">
         <div tw="mx-2 text-center">
           <h3 tw="text-gray-100"> Search Pokemon by Name </h3>
           <form>

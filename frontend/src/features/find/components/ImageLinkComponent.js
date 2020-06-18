@@ -2,16 +2,25 @@
 import { jsx, css } from "@emotion/core"
 import tw from "twin.macro"
 
-import React from "react"
+import React, { useState } from "react"
 
 import { useDispatch } from "react-redux"
 import { storeInputImage } from "../findSlice"
 
-const ImageLinkComponent = props => {
+const ImageLinkComponent = () => {
+  const dispatch = useDispatch()
+  const [imageLink, setImageLink] = useState("")
+
+  const handleImageUpload = e => {
+    e.preventDefault()
+    dispatch(storeInputImage({ uploadedImage: imageLink }))
+  }
   return (
     <div tw="text-gray-100 text-center px-1 py-4">
-      <form>
+      <form onSubmit={handleImageUpload}>
         <input
+          value={imageLink}
+          onChange={e => setImageLink(e.target.value)}
           tw="rounded text-gray-900 p-1"
           placeholder="enter link to image"
         />
