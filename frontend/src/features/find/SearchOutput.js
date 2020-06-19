@@ -18,7 +18,7 @@ const SearchOutput = () => {
           <div></div>
           {findState.uploadedImage && (
             <img
-              tw="border border-gray-800 p-1"
+              tw="border border-gray-800 p-1 rounded shadow-lg"
               src={findState.uploadedImage}
             />
           )}

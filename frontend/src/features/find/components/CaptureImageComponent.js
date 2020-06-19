@@ -20,8 +20,13 @@ const CaptureImageComponent = () => {
   }, [webcamRef, setImgSrc])
 
   return (
-    <div tw="text-gray-100 px-1 py-4">
-      <Webcam audio={false} ref={webcamRef} screenshotFormat="image/jpeg" />
+    <div tw="flex flex-col items-center text-gray-100 px-1 py-4">
+      <Webcam
+        tw="rounded"
+        audio={false}
+        ref={webcamRef}
+        screenshotFormat="image/jpeg"
+      />
       <button
         onClick={capture}
         tw="rounded border border-white text-gray-100 hover:bg-gray-100 hover:font-semibold hover:text-gray-900 px-4 py-1 mt-1"
