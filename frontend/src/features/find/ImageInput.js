@@ -2,7 +2,7 @@
 import { jsx, css } from "@emotion/core"
 import tw, { styled } from "twin.macro"
 
-import React, { useState } from "react"
+import { useState } from "react"
 
 // import components
 import UploadImageComponent from "./components/UploadImageComponent"

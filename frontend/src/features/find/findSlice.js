@@ -3,7 +3,7 @@ import axios from "axios"
 
 const initialState = {
   uploadedImage: "",
-  matchesFound: [],
+  webCamStream: "",
 }
 
 export const findSlice = createSlice({

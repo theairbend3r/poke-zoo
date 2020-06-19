@@ -2,9 +2,7 @@
 import { jsx, css } from "@emotion/core"
 import tw from "twin.macro"
 
-import React, { useState, useEffect } from "react"
-
-import { useSelector, useDispatch } from "react-redux"
+import { useSelector } from "react-redux"
 import { selectorFind } from "./findSlice"
 
 const SearchOutput = () => {
