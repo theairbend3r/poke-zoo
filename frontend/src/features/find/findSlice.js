@@ -3,7 +3,8 @@ import axios from "axios"
 
 const initialState = {
   uploadedImage: "",
-  webCamStream: "",
+  model: null,
+  matchesFound: [],
 }
 
 export const findSlice = createSlice({
@@ -13,9 +14,12 @@ export const findSlice = createSlice({
     storeInputImage: (state, action) => {
       state.uploadedImage = action.payload.uploadedImage
     },
+    setModel: (state, action) => {
+      state.model = action.payload.model
+    },
   },
 })
 
 export const selectorFind = state => state.find
-export const { storeInputImage } = findSlice.actions
+export const { storeInputImage, setModel } = findSlice.actions
 export default findSlice.reducer
