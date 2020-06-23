@@ -1,9 +1,9 @@
 /** @jsx jsx */
 import { jsx, css } from "@emotion/core"
 import tw from "twin.macro"
-
+import axios from "axios"
 import * as tf from "@tensorflow/tfjs"
-import * as mobilenet from "@tensorflow-models/mobilenet"
+// import * as mobilenet from "@tensorflow-models/mobilenet"
 
 import { useSelector, useDispatch } from "react-redux"
 import { selectorFind, setModel } from "./findSlice"
@@ -19,8 +19,14 @@ const SearchOutput = () => {
   // NEED TO SERVE A CUSTOM MODEL FROM NODEJS
   useEffect(() => {
     async function fetchModel() {
-      const mobileNetModel = await mobilenet.load()
-      setModel(mobileNetModel)
+      // const mobileNetModel = await mobilenet.load()
+
+      const classifierModel = await tf.loadLayersModel(
+        // "../../../../classifier_models/original/model.json"
+        "http://localhost:3001/api/pokeml/classify"
+      )
+
+      setModel(classifierModel)
     }
     fetchModel()
   }, [])
@@ -28,7 +34,13 @@ const SearchOutput = () => {
   useEffect(() => {
     async function makePredictions() {
       if (imageRef && model) {
-        const pred = await model.classify(imageRef.current)
+        const imgTensor = tf.browser
+          .fromPixels(imageRef.current)
+          .resizeNearestNeighbor([224, 224])
+          .toFloat()
+          .expandDims()
+
+        const pred = await model.predict(imgTensor)
         console.log(pred)
         return pred
       }
