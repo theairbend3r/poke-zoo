@@ -3,11 +3,12 @@ import { jsx, css } from "@emotion/core"
 import tw from "twin.macro"
 import axios from "axios"
 import * as tf from "@tensorflow/tfjs"
-// import * as mobilenet from "@tensorflow-models/mobilenet"
 
 import { useSelector, useDispatch } from "react-redux"
 import { selectorFind, setModel } from "./findSlice"
 import { useEffect, useState, useRef } from "react"
+import {} from "@tensorflow/tfjs"
+import idx2class from "./components/classIdxDict"
 
 const SearchOutput = () => {
   const findState = useSelector(selectorFind)
@@ -15,18 +16,29 @@ const SearchOutput = () => {
   const imageRef = useRef(null)
 
   const [model, setModel] = useState(null)
+  const [predictions, setPredictions] = useState([])
 
-  // NEED TO SERVE A CUSTOM MODEL FROM NODEJS
+  const MODEL_HTTP_URL = "http://localhost:3001/api/pokeml/classify"
+  const MODEL_INDEXEDDB_URL = "indexeddb://poke-model"
+
   useEffect(() => {
     async function fetchModel() {
-      // const mobileNetModel = await mobilenet.load()
+      try {
+        const localClassifierModel = await tf.loadLayersModel(
+          MODEL_INDEXEDDB_URL
+        )
+        console.log("Model loaded from IndexedDB")
 
-      const classifierModel = await tf.loadLayersModel(
-        // "../../../../classifier_models/original/model.json"
-        "http://localhost:3001/api/pokeml/classify"
-      )
+        setModel(localClassifierModel)
+      } catch (e) {
+        const classifierModel = await tf.loadLayersModel(MODEL_HTTP_URL)
 
-      setModel(classifierModel)
+        await classifierModel.save(MODEL_INDEXEDDB_URL)
+        console.log("Model loaded from server and saved to IndexedDB.")
+        console.error(e)
+
+        setModel(classifierModel)
+      }
     }
     fetchModel()
   }, [])
@@ -34,15 +46,26 @@ const SearchOutput = () => {
   useEffect(() => {
     async function makePredictions() {
       if (imageRef && model) {
-        const imgTensor = tf.browser
-          .fromPixels(imageRef.current)
-          .resizeNearestNeighbor([224, 224])
-          .toFloat()
-          .expandDims()
+        try {
+          const imgTensor = tf.browser
+            .fromPixels(imageRef.current)
+            .resizeNearestNeighbor([160, 160])
+            .toFloat()
+            .expandDims()
 
-        const pred = await model.predict(imgTensor)
-        console.log(pred)
-        return pred
+          const y_pred = await model.predict(imgTensor).dataSync()
+          const topkPred = [...y_pred].sort((a, b) => b - a).slice(0, 5)
+          const topkPredIdx = []
+          const topkPredNames = []
+          topkPred.map(i => topkPredIdx.push(y_pred.indexOf(i)))
+          topkPredIdx.map(i => topkPredNames.push(idx2class[i]))
+
+          console.log(topkPredNames)
+          console.log(predictions)
+          return topkPredNames
+        } catch (e) {
+          console.log("Unable to run predictions.")
+        }
       }
     }
     makePredictions()
@@ -72,6 +95,9 @@ const SearchOutput = () => {
         <h3 tw="bg-gray-700 mb-1 text-gray-100 font-semibold p-1 rounded">
           Search Results
         </h3>
+        {predictions.map(i => (
+          <p key={i}> i </p>
+        ))}
       </div>
     </div>
   )

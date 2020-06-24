@@ -36,12 +36,12 @@ app.use("/api/collection", collectionRouter)
 
 app.use(
   "/api/pokeml/classify",
-  express.static(path.join(__dirname, "classifier_models/test/model.json"))
+  express.static(path.join(__dirname, "classifier_models/original/model.json"))
 )
 
 app.use(
   "/api/pokeml",
-  express.static(path.join(__dirname, "classifier_models/test"))
+  express.static(path.join(__dirname, "classifier_models/original"))
 )
 
 module.exports = app
