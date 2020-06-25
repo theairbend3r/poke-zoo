@@ -4,25 +4,20 @@ import tw from "twin.macro"
 import axios from "axios"
 import * as tf from "@tensorflow/tfjs"
 
-import { useSelector, useDispatch } from "react-redux"
-import { selectorFind, setModel } from "./findSlice"
-import { useEffect, useState, useRef, useCallback } from "react"
+import { useSelector } from "react-redux"
+import { selectorFind } from "./findSlice"
+import { useEffect, useState, useRef } from "react"
 import idx2class from "./components/classIdxDict"
+import { loadLayersModel } from "@tensorflow/tfjs"
 
 const SearchOutput = () => {
   const findState = useSelector(selectorFind)
-  // const imageRef = useRef(null)
-  const [imageRef, setImageRef] = useState(null)
+  const imageRef = useRef(null)
+  // const [imageRef, setImageRef] = useState(null)
 
-  const onChangeRef = useCallback(node => {
-    // ref value changed to node
-    setImageRef(node) // e.g. change ref state to trigger re-render
-    if (node === null) {
-      // node is null, if DOM node of ref had been unmounted before
-    } else {
-      // ref value exists
-    }
-  }, [])
+  // const onChangeRef = useCallback(node => {
+  //   setImageRef(node)
+  // }, [])
 
   const [model, setModel] = useState(null)
   const [predictions, setPredictions] = useState([])
@@ -45,7 +40,7 @@ const SearchOutput = () => {
 
         await classifierModel.save(MODEL_INDEXEDDB_URL)
 
-        console.error(e)
+        console.log(e)
       }
     }
     fetchModel()
@@ -67,10 +62,10 @@ const SearchOutput = () => {
     async function makePredictions() {
       if (imageRef && model) {
         console.log(findState.uploadedImage)
-        console.log(imageRef)
+        console.log(imageRef.current)
         try {
           const imgTensor = tf.browser
-            .fromPixels(imageRef)
+            .fromPixels(imageRef.current)
             .resizeNearestNeighbor([160, 160])
             .toFloat()
             .sub(127.5)
@@ -88,7 +83,7 @@ const SearchOutput = () => {
       }
     }
     makePredictions()
-  }, [findState.uploadedImage, imageRef])
+  }, [findState.uploadedImage])
 
   return (
     <div tw="flex flex-col text-center p-2 md:flex-row ">
@@ -100,7 +95,7 @@ const SearchOutput = () => {
           <div></div>
           {findState.uploadedImage && (
             <img
-              ref={onChangeRef}
+              ref={imageRef}
               tw="border border-gray-800 p-1 rounded shadow-lg"
               src={findState.uploadedImage}
               width="600"
