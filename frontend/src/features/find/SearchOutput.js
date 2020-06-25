@@ -4,8 +4,8 @@ import tw from "twin.macro"
 import axios from "axios"
 import * as tf from "@tensorflow/tfjs"
 
-import { useSelector } from "react-redux"
-import { selectorFind } from "./findSlice"
+import { useSelector, useDispatch } from "react-redux"
+import { selectorFind, storePredictions } from "./findSlice"
 import { useEffect, useState, useRef } from "react"
 import idx2class from "./components/classIdxDict"
 import { loadLayersModel } from "@tensorflow/tfjs"
@@ -13,6 +13,7 @@ import { loadLayersModel } from "@tensorflow/tfjs"
 const SearchOutput = () => {
   const findState = useSelector(selectorFind)
   const imageRef = useRef(null)
+  const dispatch = useDispatch()
   // const [imageRef, setImageRef] = useState(null)
 
   // const onChangeRef = useCallback(node => {
@@ -20,7 +21,6 @@ const SearchOutput = () => {
   // }, [])
 
   const [model, setModel] = useState(null)
-  const [predictions, setPredictions] = useState([])
 
   const MODEL_HTTP_URL = "api/pokeml/classify"
   const MODEL_INDEXEDDB_URL = "indexeddb://poke-model"
@@ -74,8 +74,10 @@ const SearchOutput = () => {
 
           const y_pred = await model.predict(imgTensor).dataSync()
           const topkPredNames = getTopKPred(y_pred, 5)
+          dispatch(storePredictions({ predictions: topkPredNames }))
 
           console.log(topkPredNames)
+
           return topkPredNames
         } catch (e) {
           console.log("Unable to run predictions.", e)
@@ -105,12 +107,12 @@ const SearchOutput = () => {
           <div></div>
         </div>
       </div>
-      <div tw="md:w-1/2 md:h-screen m-1">
+      <div tw="md:w-1/2 md:h-screen m-1 text-black">
         <h3 tw="bg-gray-700 mb-1 text-gray-100 font-semibold p-1 rounded">
           Search Results
         </h3>
-        {predictions.map(i => (
-          <p key={i}> i </p>
+        {findState.matchesFound.map(poke => (
+          <p key={poke}> {poke} </p>
         ))}
       </div>
     </div>

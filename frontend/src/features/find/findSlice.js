@@ -3,7 +3,6 @@ import axios from "axios"
 
 const initialState = {
   uploadedImage: "",
-  model: null,
   matchesFound: [],
 }
 
@@ -14,12 +13,12 @@ export const findSlice = createSlice({
     storeInputImage: (state, action) => {
       state.uploadedImage = action.payload.uploadedImage
     },
-    setModel: (state, action) => {
-      state.model = action.payload.model
+    storePredictions: (state, action) => {
+      state.matchesFound = action.payload.predictions
     },
   },
 })
 
 export const selectorFind = state => state.find
-export const { storeInputImage, setModel } = findSlice.actions
+export const { storeInputImage, storePredictions } = findSlice.actions
 export default findSlice.reducer
