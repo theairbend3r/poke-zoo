@@ -66,6 +66,8 @@ const SearchOutput = () => {
   useEffect(() => {
     async function makePredictions() {
       if (imageRef && model) {
+        console.log(findState.uploadedImage)
+        console.log(imageRef)
         try {
           const imgTensor = tf.browser
             .fromPixels(imageRef)
