@@ -27,7 +27,7 @@ const SearchOutput = () => {
   const [model, setModel] = useState(null)
   const [predictions, setPredictions] = useState([])
 
-  const MODEL_HTTP_URL = "http://localhost:3001/api/pokeml/classify"
+  const MODEL_HTTP_URL = "api/pokeml/classify"
   const MODEL_INDEXEDDB_URL = "indexeddb://poke-model"
 
   useEffect(() => {
