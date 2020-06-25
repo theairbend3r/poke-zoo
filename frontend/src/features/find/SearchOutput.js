@@ -6,14 +6,23 @@ import * as tf from "@tensorflow/tfjs"
 
 import { useSelector, useDispatch } from "react-redux"
 import { selectorFind, setModel } from "./findSlice"
-import { useEffect, useState, useRef } from "react"
-import {} from "@tensorflow/tfjs"
+import { useEffect, useState, useRef, useCallback } from "react"
 import idx2class from "./components/classIdxDict"
 
 const SearchOutput = () => {
   const findState = useSelector(selectorFind)
-  const dispatch = useDispatch()
-  const imageRef = useRef(null)
+  // const imageRef = useRef(null)
+  const [imageRef, setImageRef] = useState(null)
+
+  const onChangeRef = useCallback(node => {
+    // ref value changed to node
+    setImageRef(node) // e.g. change ref state to trigger re-render
+    if (node === null) {
+      // node is null, if DOM node of ref had been unmounted before
+    } else {
+      // ref value exists
+    }
+  }, [])
 
   const [model, setModel] = useState(null)
   const [predictions, setPredictions] = useState([])
@@ -27,49 +36,57 @@ const SearchOutput = () => {
         const localClassifierModel = await tf.loadLayersModel(
           MODEL_INDEXEDDB_URL
         )
-        console.log("Model loaded from IndexedDB")
 
         setModel(localClassifierModel)
+        console.log("Model loaded from IndexedDB")
       } catch (e) {
         const classifierModel = await tf.loadLayersModel(MODEL_HTTP_URL)
+        setModel(classifierModel)
 
         await classifierModel.save(MODEL_INDEXEDDB_URL)
-        console.log("Model loaded from server and saved to IndexedDB.")
-        console.error(e)
 
-        setModel(classifierModel)
+        console.error(e)
       }
     }
     fetchModel()
   }, [])
+
+  const getTopKPred = (pred, k) => {
+    const predIdx = []
+    const predNames = []
+
+    const topkPred = [...pred].sort((a, b) => b - a).slice(0, k)
+
+    topkPred.map(i => predIdx.push(pred.indexOf(i)))
+    predIdx.map(i => predNames.push(idx2class[i]))
+
+    return predNames
+  }
 
   useEffect(() => {
     async function makePredictions() {
       if (imageRef && model) {
         try {
           const imgTensor = tf.browser
-            .fromPixels(imageRef.current)
+            .fromPixels(imageRef)
             .resizeNearestNeighbor([160, 160])
             .toFloat()
+            .sub(127.5)
+            .div(127.5)
             .expandDims()
 
           const y_pred = await model.predict(imgTensor).dataSync()
-          const topkPred = [...y_pred].sort((a, b) => b - a).slice(0, 5)
-          const topkPredIdx = []
-          const topkPredNames = []
-          topkPred.map(i => topkPredIdx.push(y_pred.indexOf(i)))
-          topkPredIdx.map(i => topkPredNames.push(idx2class[i]))
+          const topkPredNames = getTopKPred(y_pred, 5)
 
           console.log(topkPredNames)
-          console.log(predictions)
           return topkPredNames
         } catch (e) {
-          console.log("Unable to run predictions.")
+          console.log("Unable to run predictions.", e)
         }
       }
     }
     makePredictions()
-  }, [findState.uploadedImage])
+  }, [findState.uploadedImage, imageRef])
 
   return (
     <div tw="flex flex-col text-center p-2 md:flex-row ">
@@ -81,7 +98,7 @@ const SearchOutput = () => {
           <div></div>
           {findState.uploadedImage && (
             <img
-              ref={imageRef}
+              ref={onChangeRef}
               tw="border border-gray-800 p-1 rounded shadow-lg"
               src={findState.uploadedImage}
               width="600"
