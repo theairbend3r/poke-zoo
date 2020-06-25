@@ -23,12 +23,12 @@ const Collection = () => {
   // Try autologin
   useEffect(() => {
     dispatch(tryAutoLogin())
-  }, [])
+  }, [dispatch])
 
   // Fetch collection by dispatching the action with username.
   useEffect(() => {
     dispatch(fetchCollection(authState.username))
-  }, [dispatch])
+  }, [dispatch, authState.username])
 
   const handleCollectionCreation = e => {
     e.preventDefault()

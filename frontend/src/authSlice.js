@@ -55,7 +55,7 @@ export const tryAutoLogin = () => {
         dispatch(login(user))
       }
     } catch (e) {
-      console.log("")
+      console.log(e)
     }
   }
 }

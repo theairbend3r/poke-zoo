@@ -1,3 +1,4 @@
+const path = require("path")
 const config = require("./utils/config")
 const logger = require("./utils/logger")
 const express = require("express")
@@ -32,5 +33,15 @@ app.use(express.json())
 // Routes
 app.use("/api/auth", authRouter)
 app.use("/api/collection", collectionRouter)
+
+app.use(
+  "/api/pokeml/classify",
+  express.static(path.join(__dirname, "classifier_models/original/model.json"))
+)
+
+app.use(
+  "/api/pokeml",
+  express.static(path.join(__dirname, "classifier_models/original"))
+)
 
 module.exports = app

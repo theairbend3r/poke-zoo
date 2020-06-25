@@ -1,0 +1,103 @@
+{
+  "format": "layers-model",
+  "generatedBy": "keras v2.0.2",
+  "convertedBy": "TensorFlow.js Converter v1.0.1",
+  "modelTopology": {
+    "keras_version": "2.0.2",
+    "backend": "tensorflow",
+    "model_config": {
+      "class_name": "Sequential",
+      "config": [
+        {
+          "class_name": "Flatten",
+          "config": {
+            "trainable": true,
+            "batch_input_shape": [null, 1, 1, 2048],
+            "dtype": "float32",
+            "name": "flatten_7"
+          }
+        },
+        {
+          "class_name": "Dense",
+          "config": {
+            "trainable": true,
+            "activity_regularizer": null,
+            "bias_regularizer": null,
+            "activation": "relu",
+            "units": 500,
+            "bias_initializer": { "class_name": "Zeros", "config": {} },
+            "kernel_regularizer": null,
+            "use_bias": true,
+            "bias_constraint": null,
+            "name": "dense_15",
+            "kernel_initializer": {
+              "class_name": "VarianceScaling",
+              "config": {
+                "distribution": "uniform",
+                "scale": 1.0,
+                "mode": "fan_avg",
+                "seed": null
+              }
+            },
+            "kernel_constraint": null
+          }
+        },
+        {
+          "class_name": "Dropout",
+          "config": { "trainable": true, "rate": 0.5, "name": "dropout_7" }
+        },
+        {
+          "class_name": "Dense",
+          "config": {
+            "trainable": true,
+            "activity_regularizer": null,
+            "bias_regularizer": null,
+            "activation": "softmax",
+            "units": 133,
+            "bias_initializer": { "class_name": "Zeros", "config": {} },
+            "kernel_regularizer": null,
+            "use_bias": true,
+            "bias_constraint": null,
+            "name": "dense_16",
+            "kernel_initializer": {
+              "class_name": "VarianceScaling",
+              "config": {
+                "distribution": "uniform",
+                "scale": 1.0,
+                "mode": "fan_avg",
+                "seed": null
+              }
+            },
+            "kernel_constraint": null
+          }
+        }
+      ]
+    },
+    "training_config": {
+      "sample_weight_mode": null,
+      "optimizer_config": {
+        "class_name": "RMSprop",
+        "config": {
+          "rho": 0.8999999761581421,
+          "lr": 0.0010000000474974513,
+          "decay": 0.0,
+          "epsilon": 1e-8
+        }
+      },
+      "metrics": ["accuracy"],
+      "loss_weights": null,
+      "loss": "categorical_crossentropy"
+    }
+  },
+  "weightsManifest": [
+    {
+      "paths": ["group1-shard1of2.bin", "group1-shard2of2.bin"],
+      "weights": [
+        { "name": "dense_15/kernel", "shape": [2048, 500], "dtype": "float32" },
+        { "name": "dense_15/bias", "shape": [500], "dtype": "float32" },
+        { "name": "dense_16/kernel", "shape": [500, 133], "dtype": "float32" },
+        { "name": "dense_16/bias", "shape": [133], "dtype": "float32" }
+      ]
+    }
+  ]
+}
