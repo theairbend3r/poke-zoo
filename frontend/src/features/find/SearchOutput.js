@@ -68,8 +68,8 @@ const SearchOutput = () => {
             .fromPixels(imageRef.current)
             .resizeNearestNeighbor([160, 160])
             .toFloat()
-            .sub(127.5)
-            .div(127.5)
+            .sub(127)
+            .div(127)
             .expandDims()
 
           const y_pred = await model.predict(imgTensor)
