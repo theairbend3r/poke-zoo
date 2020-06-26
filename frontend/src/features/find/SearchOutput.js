@@ -72,7 +72,7 @@ const SearchOutput = () => {
             .div(127.5)
             .expandDims()
 
-          const y_pred = await model.predict(imgTensor).dataSync()
+          const y_pred = await model.predict(imgTensor)
           const topkPredNames = getTopKPred(y_pred, 5)
           dispatch(storePredictions({ predictions: topkPredNames }))
 
