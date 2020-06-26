@@ -61,8 +61,11 @@ const SearchOutput = () => {
   useEffect(() => {
     async function makePredictions() {
       if (imageRef && model) {
-        console.log(findState.uploadedImage)
-        console.log(imageRef.current)
+        console.log(
+          "Uploaded Image from inside the useEffect",
+          findState.uploadedImage
+        )
+        console.log("ImageRef from inside the useEffect", imageRef.current)
         try {
           const imgTensor = tf.browser
             .fromPixels(imageRef.current)
@@ -72,7 +75,7 @@ const SearchOutput = () => {
             .div(127)
             .expandDims()
 
-          const y_pred = await model.predict(imgTensor)
+          const y_pred = await model.predict(imgTensor).data()
           const topkPredNames = getTopKPred(y_pred, 5)
           dispatch(storePredictions({ predictions: topkPredNames }))
 
@@ -95,6 +98,8 @@ const SearchOutput = () => {
         </h3>
         <div tw="flex flex-row justify-between">
           <div></div>
+          {console.log("Uploaded Image from html", findState.uploadedImage)}
+          {console.log("ImageRef from html", imageRef.current)}
           {findState.uploadedImage && (
             <img
               ref={imageRef}
