@@ -13,6 +13,10 @@ const CaptureImageComponent = () => {
 
   const dispatch = useDispatch()
 
+  const videoConstraints = {
+    facingMode: { exact: "environment" },
+  }
+
   const capture = useCallback(() => {
     const imageSrc = webcamRef.current.getScreenshot()
     setImgSrc(imageSrc)
@@ -26,6 +30,7 @@ const CaptureImageComponent = () => {
         audio={false}
         ref={webcamRef}
         screenshotFormat="image/jpeg"
+        videoConstraints={videoConstraints}
       />
       <button
         onClick={capture}
