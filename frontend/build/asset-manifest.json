@@ -5,20 +5,20 @@
     "runtime-main.js": "/static/js/runtime-main.fc75219d.js",
     "runtime-main.js.map": "/static/js/runtime-main.fc75219d.js.map",
     "static/css/2.13c6718b.chunk.css": "/static/css/2.13c6718b.chunk.css",
-    "static/js/2.4163c0e6.chunk.js": "/static/js/2.4163c0e6.chunk.js",
-    "static/js/2.4163c0e6.chunk.js.map": "/static/js/2.4163c0e6.chunk.js.map",
+    "static/js/2.b1af80cb.chunk.js": "/static/js/2.b1af80cb.chunk.js",
+    "static/js/2.b1af80cb.chunk.js.map": "/static/js/2.b1af80cb.chunk.js.map",
     "index.html": "/index.html",
-    "precache-manifest.070dc23873c74370ee31bf95d57ffb7d.js": "/precache-manifest.070dc23873c74370ee31bf95d57ffb7d.js",
+    "precache-manifest.dafa7ba060c341f04d6721026c1a9adf.js": "/precache-manifest.dafa7ba060c341f04d6721026c1a9adf.js",
     "service-worker.js": "/service-worker.js",
     "static/css/2.13c6718b.chunk.css.map": "/static/css/2.13c6718b.chunk.css.map",
-    "static/js/2.4163c0e6.chunk.js.LICENSE.txt": "/static/js/2.4163c0e6.chunk.js.LICENSE.txt",
+    "static/js/2.b1af80cb.chunk.js.LICENSE.txt": "/static/js/2.b1af80cb.chunk.js.LICENSE.txt",
     "static/media/pikachu.jpg": "/static/media/pikachu.486d6ae6.jpg",
     "static/media/pikachu_phone.jpg": "/static/media/pikachu_phone.f70615ac.jpg"
   },
   "entrypoints": [
     "static/js/runtime-main.fc75219d.js",
     "static/css/2.13c6718b.chunk.css",
-    "static/js/2.4163c0e6.chunk.js",
+    "static/js/2.b1af80cb.chunk.js",
     "static/js/main.083fb38d.chunk.js"
   ]
 }
