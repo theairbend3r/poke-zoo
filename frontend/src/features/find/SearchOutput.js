@@ -98,15 +98,18 @@ const SearchOutput = () => {
         </h3>
         <div tw="flex flex-row justify-between">
           <div></div>
-          {console.log("Uploaded Image from html", findState.uploadedImage)}
-          {console.log("ImageRef from html", imageRef.current)}
+          {console.log(
+            "Uploaded Image from inside the useEffect",
+            findState.uploadedImage
+          )}
+          {console.log("ImageRef from inside the useEffect", imageRef.current)}
           {findState.uploadedImage && (
             <img
               ref={imageRef}
               tw="border border-gray-800 p-1 rounded shadow-lg"
               src={findState.uploadedImage}
-              width="600"
-              height="600"
+              width={600}
+              height={600}
             />
           )}
           <div></div>

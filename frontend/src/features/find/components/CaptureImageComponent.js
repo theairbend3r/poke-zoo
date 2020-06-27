@@ -9,19 +9,17 @@ import { storeInputImage } from "../findSlice"
 
 const CaptureImageComponent = () => {
   const webcamRef = useRef(null)
-  const [imgSrc, setImgSrc] = useState(null)
 
   const dispatch = useDispatch()
 
   const videoConstraints = {
-    facingMode: { exact: "environment" },
+    facingMode: "environment",
   }
 
   const capture = useCallback(() => {
     const imageSrc = webcamRef.current.getScreenshot()
-    setImgSrc(imageSrc)
     dispatch(storeInputImage({ uploadedImage: imageSrc }))
-  }, [webcamRef, setImgSrc])
+  }, [webcamRef])
 
   return (
     <div tw="flex flex-col items-center text-gray-100 px-1 py-4">

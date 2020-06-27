@@ -52,7 +52,7 @@ const ImageInput = () => {
             ) : inputType === "image_link" ? (
               <ImageLinkComponent />
             ) : (
-              "lol"
+              <div> CANNOT DISPLAY INPUT COMPONENTS </div>
             )}
           </div>
         </div>
