@@ -127,6 +127,8 @@ collectionRouter.post("/addpoke", verify, async (req, res) => {
     pokeName: body.pokemon.pokeName,
     pokeUrl: body.pokemon.pokeUrl,
     pokeType: body.pokemon.pokeType,
+    pokeHeight: body.pokemon.pokeHeight,
+    pokeWeight: body.pokemon.pokeWeight,
   })
 
   // Save document

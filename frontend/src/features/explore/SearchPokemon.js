@@ -3,6 +3,7 @@ import { jsx, css } from "@emotion/core"
 import tw from "twin.macro"
 
 import React, { useState } from "react"
+import Bin from "../../Icons/Bin"
 
 import { useDispatch } from "react-redux"
 import { search } from "./pokemonCardsSlice"
@@ -28,7 +29,7 @@ const SearchPokemon = () => {
               tw="rounded text-gray-900 border border-purple-700 p-1"
               value={searchTerm}
               onChange={handleSearchTermChange}
-              placeholder="enter pokemon name"
+              placeholder="search pokemon"
             />
           </form>
         </div>

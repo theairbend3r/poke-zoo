@@ -69,7 +69,7 @@ const PokemonCardML = props => {
           alt={pokemonName}
           src={pokemonSprite}
         />
-        <p tw=" text-gray-900 font-extrabold text-center whitespace-normal rounded p-1 m-1">
+        <p tw="text-lg text-gray-900 font-extrabold text-center whitespace-normal rounded p-1 m-1">
           {pokemonName}
         </p>
 
@@ -103,7 +103,7 @@ const PokemonCardML = props => {
             ))}
           </select>
           <button
-            tw="rounded border border-gray-900 text-gray-900 hover:bg-gray-800 hover:font-semibold hover:text-gray-100 px-4 py-1 ml-2 mt-2"
+            tw="rounded border border-gray-900 text-gray-900 hover:bg-gray-700 hover:font-semibold hover:text-gray-100 px-4 py-1 ml-2 mt-2"
             type="submit"
           >
             add

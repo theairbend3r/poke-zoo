@@ -1,2 +1,5 @@
 export { default as Bin } from './Bin'
-export { default as Close } from './Close'
+export { default as Github } from './Github'
+export { default as Linkedin } from './Linkedin'
+export { default as Medium } from './Medium'
+export { default as Twitter } from './Twitter'

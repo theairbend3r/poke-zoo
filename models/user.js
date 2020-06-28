@@ -15,6 +15,14 @@ const pokeSchema = mongoose.Schema({
     type: String,
     required: true,
   },
+  pokeHeight: {
+    type: Number,
+    required: true,
+  },
+  pokeWeight: {
+    type: Number,
+    required: true,
+  },
 })
 
 const collectionSchema = mongoose.Schema(

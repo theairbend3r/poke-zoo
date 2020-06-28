@@ -2,6 +2,8 @@
 import { jsx, css } from "@emotion/core"
 import tw from "twin.macro"
 
+import Footer from "../../components/Footer"
+
 import UserInfo from "./UserInfo"
 import Collection from "./Collection"
 import { fetchPokemonNameUrl } from "../explore/pokemonCardsSlice"
@@ -18,9 +20,12 @@ const Home = () => {
   }, [dispatch])
 
   return (
-    <div tw="flex flex-1 flex-col h-screen bg-blue-100">
-      <UserInfo />
-      <Collection />
+    <div tw="flex flex-1 flex-col h-screen justify-between bg-blue-100">
+      <div>
+        <UserInfo />
+        <Collection />
+      </div>
+      <Footer />
     </div>
   )
 }

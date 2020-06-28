@@ -24,6 +24,8 @@ const PokemonCard = props => {
       pokeName: "",
       pokeUrl: "",
       pokeType: "",
+      pokeHeight: 0,
+      pokeWeight: 0,
     },
   })
 
@@ -36,6 +38,8 @@ const PokemonCard = props => {
         pokeName: pokemonName,
         pokeUrl: pokemonSprite,
         pokeType: pokemonType,
+        pokeHeight: pokemonHeight,
+        pokeWeight: pokemonWeight,
       },
     })
   }
@@ -49,6 +53,8 @@ const PokemonCard = props => {
         pokeName: "",
         pokeUrl: "",
         pokeType: "",
+        pokeHeight: 0,
+        pokeWeight: 0,
       },
     })
   }
@@ -77,7 +83,7 @@ const PokemonCard = props => {
         </p>
 
         <PokeTypeColorElement
-          tw="text-center text-white font-semibold text-center whitespace-normal rounded p-1 m-1"
+          tw="text-center text-white font-semibold text-center whitespace-normal rounded py-1 px-2 m-1"
           color={pokemonType}
         >
           {pokemonType}
@@ -91,7 +97,7 @@ const PokemonCard = props => {
         </div>
         <form onSubmit={handleSubmit}>
           <select
-            tw="rounded"
+            tw="border border-gray-900 rounded"
             value={currentCollection.collectionId}
             onChange={handleChange}
           >

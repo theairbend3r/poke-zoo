@@ -86,13 +86,13 @@ const CollectionCard = props => {
           <div tw="flex flex-row justify-end mt-1">
             <button
               onClick={handleEditToggle}
-              tw="mx-1 px-2 py-1 rounded bg-yellow-500 text-gray-800 hover:text-gray-900 hover:font-semibold text-sm sm:text-base"
+              tw="mx-1 px-2 py-1 rounded bg-yellow-500 text-gray-800 hover:text-gray-900 hover:font-semibold text-xs sm:text-base"
             >
               edit
             </button>
             <button
               onClick={() => handleRemoveCollection(collectionObj.collectionId)}
-              tw="mx-1 px-2 py-1 rounded bg-gray-100 text-gray-800 hover:text-gray-900 hover:font-semibold text-sm sm:text-base"
+              tw="mx-1 px-2 py-1 rounded bg-gray-100 text-gray-800 hover:text-gray-900 hover:font-semibold text-xs sm:text-base"
             >
               delete
             </button>
@@ -102,7 +102,7 @@ const CollectionCard = props => {
             <h3 tw="whitespace-pre-line my-1 mb-4 rounded text-center font-bold text-3xl sm:text-4xl md:text-3xl">
               {collectionObj.collectionName}
             </h3>
-            <ul tw="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-2 xl:grid-cols-3 gap-6 px-2 py-2 md:py-0">
+            <ul tw="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 xl:grid-cols-2 gap-6 px-2 py-2 md:py-0">
               {collectionObj.pokemons.map(poke => (
                 <li
                   key={poke.pokeName}
@@ -110,7 +110,7 @@ const CollectionCard = props => {
                 >
                   <div>
                     <img
-                      tw="h-16 w-16 sm:h-20 sm:w-20 md:h-20 md:w-20"
+                      tw="object-contain transform sm:scale-125 h-16 w-16 sm:h-20 sm:w-20 md:h-20 md:w-20"
                       src={poke.pokeUrl}
                     />
                   </div>
@@ -140,13 +140,13 @@ const CollectionCard = props => {
           <div tw="flex flex-row justify-end mt-1">
             <button
               onClick={() => handleSave(collectionObj.collectionId)}
-              tw="mx-1 px-2 py-1 rounded bg-yellow-500 text-gray-800 hover:text-gray-900 hover:font-semibold text-sm sm:text-base"
+              tw="mx-1 px-2 py-1 rounded bg-green-700 text-gray-200 hover:text-gray-100 hover:font-semibold text-xs sm:text-base"
             >
               save
             </button>
             <button
               onClick={handleEditToggle}
-              tw="mx-1 px-2 py-1 rounded bg-gray-100 text-gray-800 hover:text-gray-900 hover:font-semibold text-sm sm:text-base"
+              tw="mx-1 px-2 py-1 rounded bg-gray-100 text-gray-800 hover:text-gray-900 hover:font-semibold text-xs sm:text-base"
             >
               cancel
             </button>
@@ -157,7 +157,7 @@ const CollectionCard = props => {
               <input
                 value={collectionName}
                 onChange={handleCollectionNameChange}
-                tw="bg-blue-800 rounded p-1 text-gray-300"
+                tw="bg-blue-800 rounded p-1 text-gray-300 border border-gray-200"
               />
             </h3>
             <ul tw="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-2 xl:grid-cols-3 gap-6 px-2 py-2 md:py-0">
@@ -183,7 +183,12 @@ const CollectionCard = props => {
                       <span tw="text-sm sm:text-lg md:text-base font-semibold">
                         {poke.pokeName}
                       </span>
-                      <span tw="text-xs sm:text-sm">{poke.pokeType}</span>
+                      <PokeTypeColorElement
+                        tw="text-xs sm:text-sm font-semibold text-gray-100 p-1 rounded"
+                        color={poke.pokeType}
+                      >
+                        {poke.pokeType}
+                      </PokeTypeColorElement>
                     </div>
                     <div></div>
                   </div>

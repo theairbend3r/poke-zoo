@@ -14,7 +14,7 @@ import {
 
 import { selectorAuth, tryAutoLogin } from "./authSlice"
 
-import React, { useEffect } from "react"
+import { useEffect } from "react"
 import { useSelector, useDispatch } from "react-redux"
 
 import Navbar from "./components/Navbar"
@@ -85,7 +85,7 @@ const App = () => {
 
   return (
     <Router>
-      <div tw="flex flex-col bg-green-100 min-h-screen">
+      <div tw="flex flex-col min-h-screen">
         <Navbar />
         <Switch>
           <AuthRoute exact path="/" component={Landing} />
