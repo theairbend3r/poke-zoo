@@ -7,11 +7,15 @@ import * as tf from "@tensorflow/tfjs"
 import { useSelector, useDispatch } from "react-redux"
 import { selectorFind, storePredictions } from "./findSlice"
 import { useEffect, useState, useRef } from "react"
-import idx2class from "./components/classIdxDict"
-import { loadLayersModel } from "@tensorflow/tfjs"
+import { selectorPokemon } from "../explore/pokemonCardsSlice"
+
+import getTopKPredPokeObj from "./utils/getTopKPred"
+import PokemonCardML from "./components/PokemonCardML"
 
 const SearchOutput = () => {
   const findState = useSelector(selectorFind)
+  const pokemonState = useSelector(selectorPokemon)
+
   const imageRef = useRef(null)
   const dispatch = useDispatch()
   // const [imageRef, setImageRef] = useState(null)
@@ -35,28 +39,19 @@ const SearchOutput = () => {
         setModel(localClassifierModel)
         console.log("Model loaded from IndexedDB")
       } catch (e) {
-        const classifierModel = await tf.loadLayersModel(MODEL_HTTP_URL)
-        setModel(classifierModel)
+        try {
+          const classifierModel = await tf.loadLayersModel(MODEL_HTTP_URL)
+          setModel(classifierModel)
 
-        await classifierModel.save(MODEL_INDEXEDDB_URL)
-
-        console.log(e)
+          await classifierModel.save(MODEL_INDEXEDDB_URL)
+          console.log("Model saved to IndexedDB")
+        } catch (e) {
+          console.log("Unable to load model at all: ", e)
+        }
       }
     }
     fetchModel()
   }, [])
-
-  const getTopKPred = (pred, k) => {
-    const predIdx = []
-    const predNames = []
-
-    const topkPred = [...pred].sort((a, b) => b - a).slice(0, k)
-
-    topkPred.map(i => predIdx.push(pred.indexOf(i)))
-    predIdx.map(i => predNames.push(idx2class[i]))
-
-    return predNames
-  }
 
   useEffect(() => {
     async function makePredictions() {
@@ -76,7 +71,11 @@ const SearchOutput = () => {
             .expandDims()
 
           const y_pred = await model.predict(imgTensor).data()
-          const topkPredNames = getTopKPred(y_pred, 5)
+          console.log(y_pred)
+          console.log(pokemonState)
+
+          const topkPredNames = getTopKPredPokeObj(y_pred, 6, pokemonState)
+
           dispatch(storePredictions({ predictions: topkPredNames }))
 
           console.log(topkPredNames)
@@ -117,11 +116,24 @@ const SearchOutput = () => {
       </div>
       <div tw="md:w-1/2 md:h-screen m-1 text-black">
         <h3 tw="bg-gray-700 mb-1 text-gray-100 font-semibold p-1 rounded">
-          Search Results
+          Search Results (top-6 matches)
         </h3>
-        {findState.matchesFound.map(poke => (
-          <p key={poke}> {poke} </p>
-        ))}
+        <div tw="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-2 gap-2">
+          {/* {findState.matchesFound.length === 5 && <p> lol </p>} */}
+          {findState.matchesFound.length === 6 &&
+            findState.matchesFound.map(poke => (
+              <PokemonCardML
+                key={`key-${poke.id}`}
+                pokemonId={poke.id}
+                pokemonName={poke.name}
+                pokemonType={poke.type}
+                pokemonHeight={poke.height}
+                pokemonWeight={poke.weight}
+                pokemonBaseExperience={poke.baseExperience}
+                pokemonSprite={poke.sprites}
+              />
+            ))}
+        </div>
       </div>
     </div>
   )

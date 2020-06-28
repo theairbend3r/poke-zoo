@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit"
 import axios from "axios"
 
 // A constant that determines how many pokemon are fetched from the API.
-export const NUMBER_OF_POKEMON = 25
+export const NUMBER_OF_POKEMON = 150
 
 // URL for the get request.
 const URL = `https://pokeapi.co/api/v2/pokemon?limit=${NUMBER_OF_POKEMON}`
