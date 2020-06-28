@@ -49,15 +49,16 @@ const Collection = () => {
         <h3 tw="mx-1"> Your Collection </h3>
         <form onSubmit={handleCollectionCreation}>
           <input
-            tw="rounded border border-purple-700 m-1"
+            tw="rounded border border-purple-700 m-1 p-1"
             value={collectionName}
             onChange={e => setCollectionName(e.target.value)}
+            placeholder="enter collection name"
           />
           <button
             tw="bg-purple-700 hover:bg-purple-800 text-gray-200 hover:text-white rounded p-1 m-1"
             type="submit"
           >
-            create collection
+            create
           </button>
         </form>
       </section>
