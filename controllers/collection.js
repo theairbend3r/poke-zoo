@@ -126,6 +126,7 @@ collectionRouter.post("/addpoke", verify, async (req, res) => {
   collection.pokemons.push({
     pokeName: body.pokemon.pokeName,
     pokeUrl: body.pokemon.pokeUrl,
+    pokeType: body.pokemon.pokeType,
   })
 
   // Save document
@@ -134,6 +135,7 @@ collectionRouter.post("/addpoke", verify, async (req, res) => {
     const returnObj = {
       pokeName: body.pokemon.pokeName,
       pokeUrl: body.pokemon.pokeUrl,
+      pokeType: body.pokemon.pokeType,
       collectionId: body.collectionId,
     }
     res.status(200).json(returnObj)

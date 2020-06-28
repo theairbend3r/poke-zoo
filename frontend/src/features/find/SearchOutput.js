@@ -92,10 +92,10 @@ const SearchOutput = () => {
   return (
     <div tw="flex flex-col text-center p-2 md:flex-row ">
       <div tw="md:w-1/2 m-1">
-        <h3 tw="bg-gray-700 mb-1 text-gray-100 font-semibold p-1 rounded">
+        <h3 tw="bg-blue-700 mb-2 text-gray-100 font-semibold p-1 rounded">
           Preview Input Image
         </h3>
-        <div tw="flex flex-row justify-between">
+        <div tw="flex flex-row justify-between p-1">
           <div></div>
           {console.log(
             "Uploaded Image from inside the useEffect",
@@ -105,7 +105,7 @@ const SearchOutput = () => {
           {findState.uploadedImage && (
             <img
               ref={imageRef}
-              tw="border border-gray-800 p-1 rounded shadow-lg"
+              tw="border border-purple-700 p-1 rounded shadow-lg"
               src={findState.uploadedImage}
               width={600}
               height={600}
@@ -115,11 +115,10 @@ const SearchOutput = () => {
         </div>
       </div>
       <div tw="md:w-1/2 md:h-screen m-1 text-black">
-        <h3 tw="bg-gray-700 mb-1 text-gray-100 font-semibold p-1 rounded">
+        <h3 tw="bg-blue-700 mb-2 text-gray-100 font-semibold p-1 rounded">
           Search Results (top-6 matches)
         </h3>
-        <div tw="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-2 gap-2">
-          {/* {findState.matchesFound.length === 5 && <p> lol </p>} */}
+        <div tw="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-2 gap-2 p-1">
           {findState.matchesFound.length === 6 &&
             findState.matchesFound.map(poke => (
               <PokemonCardML

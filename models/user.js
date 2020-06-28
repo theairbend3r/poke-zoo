@@ -11,6 +11,10 @@ const pokeSchema = mongoose.Schema({
     unique: true,
     required: true,
   },
+  pokeType: {
+    type: String,
+    required: true,
+  },
 })
 
 const collectionSchema = mongoose.Schema(

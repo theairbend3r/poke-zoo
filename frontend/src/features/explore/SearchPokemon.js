@@ -23,12 +23,12 @@ const SearchPokemon = () => {
     <div tw="bg-blue-800 py-8 px-2 md:py-10 md:px-4">
       <section tw="flex flex-row justify-center">
         <div tw="mx-2 text-center">
-          <h3 tw="text-gray-100"> Search Pokemon by Name </h3>
           <form>
             <input
-              tw="rounded"
+              tw="rounded text-gray-900 border border-purple-700 p-1"
               value={searchTerm}
               onChange={handleSearchTermChange}
+              placeholder="enter pokemon name"
             />
           </form>
         </div>

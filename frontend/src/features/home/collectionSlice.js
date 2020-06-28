@@ -52,6 +52,7 @@ export const collectionSlice = createSlice({
           state.collectionList[collectionListIndex].pokemons.push({
             pokeName: action.payload.pokeName,
             pokeUrl: action.payload.pokeUrl,
+            pokeType: action.payload.pokeType,
           })
         }
       }

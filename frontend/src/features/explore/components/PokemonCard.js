@@ -23,6 +23,7 @@ const PokemonCard = props => {
     pokemon: {
       pokeName: "",
       pokeUrl: "",
+      pokeType: "",
     },
   })
 
@@ -34,6 +35,7 @@ const PokemonCard = props => {
       pokemon: {
         pokeName: pokemonName,
         pokeUrl: pokemonSprite,
+        pokeType: pokemonType,
       },
     })
   }
@@ -46,6 +48,7 @@ const PokemonCard = props => {
       pokemon: {
         pokeName: "",
         pokeUrl: "",
+        pokeType: "",
       },
     })
   }
@@ -62,14 +65,14 @@ const PokemonCard = props => {
   } = props
 
   return (
-    <div tw="flex flex-row justify-around items-center bg-blue-800 p-2 rounded-lg overflow-x-auto">
-      <div tw="flex flex-col flex-wrap w-1/3 m-1">
+    <div tw="flex flex-row justify-around items-center border border-blue-800 p-2 rounded-lg overflow-x-auto">
+      <div tw="flex flex-col items-center flex-wrap w-1/3 m-1">
         <img
-          tw="object-contain transform sm:scale-125"
+          tw="object-contain transform sm:scale-125 h-24 w-24 sm:h-32 sm:w-32 md:h-24 md:w-24"
           alt={pokemonName}
           src={pokemonSprite}
         />
-        <p tw="bg-gray-100 text-gray-900 font-extrabold text-center whitespace-normal rounded p-1 m-1">
+        <p tw=" text-gray-900 font-extrabold text-center whitespace-normal rounded p-1 m-1">
           {pokemonName}
         </p>
 
@@ -88,6 +91,7 @@ const PokemonCard = props => {
         </div>
         <form onSubmit={handleSubmit}>
           <select
+            tw="rounded"
             value={currentCollection.collectionId}
             onChange={handleChange}
           >
@@ -102,7 +106,7 @@ const PokemonCard = props => {
             ))}
           </select>
           <button
-            tw="rounded border border-white text-gray-100 hover:bg-gray-100 hover:font-semibold hover:text-gray-900 px-4 py-1 ml-2"
+            tw="rounded border border-gray-900 text-gray-900 hover:bg-gray-800 hover:font-semibold hover:text-gray-100 px-4 py-1 ml-2 mt-2"
             type="submit"
           >
             add

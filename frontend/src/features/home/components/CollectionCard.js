@@ -4,6 +4,7 @@ import tw from "twin.macro"
 import React, { useState } from "react"
 
 import CloseIcon from "../../../Icons/Bin"
+import PokeTypeColorElement from "./pokeTypeColor"
 
 import { useDispatch, useSelector } from "react-redux"
 import { removeCollection, editCollection } from "../collectionSlice"
@@ -77,7 +78,7 @@ const CollectionCard = props => {
   }
 
   return (
-    <div tw="flex flex-col bg-blue-800 hover:border hover:border-2 hover:border-purple-700 h-full shadow-lg text-gray-100 rounded overflow-auto m-2">
+    <div tw="flex flex-col m-1 bg-blue-800 h-full shadow-lg text-gray-100 rounded overflow-auto">
       {/* conditional render based on edit button. */}
       {isEdit === "no" ? (
         // if edit mode is off, then display the the collections as is.
@@ -98,7 +99,7 @@ const CollectionCard = props => {
           </div>
 
           <div tw="flex flex-col">
-            <h3 tw="whitespace-pre-line my-1 rounded text-center font-bold text-3xl sm:text-4xl md:text-3xl">
+            <h3 tw="whitespace-pre-line my-1 mb-4 rounded text-center font-bold text-3xl sm:text-4xl md:text-3xl">
               {collectionObj.collectionName}
             </h3>
             <ul tw="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-2 xl:grid-cols-3 gap-6 px-2 py-2 md:py-0">
@@ -113,8 +114,17 @@ const CollectionCard = props => {
                       src={poke.pokeUrl}
                     />
                   </div>
-                  <div tw="text-sm sm:text-base font-semibold">
-                    {poke.pokeName}
+                  <div tw="flex flex-col items-center">
+                    <span tw="text-sm sm:text-lg md:text-base font-semibold">
+                      {poke.pokeName}
+                    </span>
+                    <PokeTypeColorElement
+                      tw="text-xs sm:text-sm font-semibold text-gray-100 p-1 rounded"
+                      color={poke.pokeType}
+                    >
+                      {poke.pokeType}
+                    </PokeTypeColorElement>
+                    {/* <span tw="text-xs sm:text-sm">{poke.pokeType}</span> */}
                   </div>
                   <div></div>
                 </li>
@@ -143,11 +153,11 @@ const CollectionCard = props => {
           </div>
 
           <div tw="flex flex-col">
-            <h3 tw="whitespace-pre-line my-1 rounded text-center font-bold text-3xl sm:text-4xl md:text-3xl">
+            <h3 tw="whitespace-pre-line my-1 mb-4 rounded text-center font-bold text-3xl sm:text-4xl md:text-3xl">
               <input
                 value={collectionName}
                 onChange={handleCollectionNameChange}
-                tw="bg-blue-800 rounded p-1"
+                tw="bg-blue-800 rounded p-1 text-gray-300"
               />
             </h3>
             <ul tw="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-2 xl:grid-cols-3 gap-6 px-2 py-2 md:py-0">
@@ -169,8 +179,11 @@ const CollectionCard = props => {
                         src={poke.pokeUrl}
                       />
                     </div>
-                    <div tw="text-sm sm:text-base font-semibold">
-                      {poke.pokeName}
+                    <div tw="flex flex-col items-center">
+                      <span tw="text-sm sm:text-lg md:text-base font-semibold">
+                        {poke.pokeName}
+                      </span>
+                      <span tw="text-xs sm:text-sm">{poke.pokeType}</span>
                     </div>
                     <div></div>
                   </div>
@@ -179,49 +192,6 @@ const CollectionCard = props => {
             </ul>
           </div>
         </section>
-        // <section>
-        //   <div tw="flex flex-row justify-between py-1 px-2">
-        //     <button
-        //       onClick={handleEditToggle}
-        //       tw="mx-1 p-1 rounded hover:text-white hover:font-semibold hover:p-1"
-        //     >
-        //       cancel
-        //     </button>
-        //     <button
-        //       onClick={() => handleSave(collectionObj.collectionId)}
-        //       tw="mx-1 p-1 rounded hover:text-white hover:font-semibold hover:p-1"
-        //     >
-        //       save
-        //     </button>
-        //   </div>
-        //   <div tw="flex flex-row justify-around pt-4 pb-8 px-2">
-        //     <div tw="my-auto text-xl md:text-lg">
-        //   <input
-        //     value={collectionName}
-        //     onChange={handleCollectionNameChange}
-        //     tw="bg-purple-600 whitespace-pre-line rounded px-1 py-4 md:p-2 text-center font-bold text-lg sm:text-xl md:text-lg"
-        //   />
-        //     </div>
-        //     <div tw="w-2/3 my-auto text-center sm:text-lg md:text-base">
-        //       <ul>
-        //         {pokemonList.map(poke => (
-        //           <li
-        //             key={poke.pokeName}
-        //             tw="flex flex-row justify-between items-center text-gray-900 mx-4 font-semibold bg-gray-100 p-1 my-1 rounded"
-        //           >
-        //             <p>{poke.pokeName}</p>
-        // <button
-        //   onClick={() => handleRemovePokemon(poke.pokeName)}
-        //   tw="font-semibold bg-red-800 m-1 px-2 py-1 rounded-full text-gray-100"
-        // >
-        //               x
-        //             </button>
-        //           </li>
-        //         ))}
-        //       </ul>
-        //     </div>
-        //   </div>
-        // </section>
       )}
     </div>
   )

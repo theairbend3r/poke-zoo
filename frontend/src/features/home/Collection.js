@@ -46,10 +46,10 @@ const Collection = () => {
   return (
     <div tw="p-2 md:p-4">
       <section tw="text-base md:text-lg lg:text-xl">
-        <h3 tw="mx-1"> Your Collection </h3>
-        <form onSubmit={handleCollectionCreation}>
+        {/* <h3 tw="mx-1"> Your Collection </h3> */}
+        <form tw="text-center" onSubmit={handleCollectionCreation}>
           <input
-            tw="rounded border border-purple-700 m-1 p-1"
+            tw="rounded text-gray-900 border border-purple-700 p-1 m-1"
             value={collectionName}
             onChange={e => setCollectionName(e.target.value)}
             placeholder="enter collection name"
@@ -62,7 +62,7 @@ const Collection = () => {
           </button>
         </form>
       </section>
-      <section tw="md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-2">
+      <section tw="md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-2 mt-4">
         {collectionState.map(col => (
           <CollectionCard key={col.collectionId} collectionObj={col} />
         ))}

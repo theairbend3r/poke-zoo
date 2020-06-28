@@ -21,7 +21,7 @@ const ImageLinkComponent = () => {
         <input
           value={imageLink}
           onChange={e => setImageLink(e.target.value)}
-          tw="rounded text-gray-900 p-1"
+          tw="rounded text-gray-900 border border-purple-700 p-1"
           placeholder="enter link to image"
         />
         <button
