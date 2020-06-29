@@ -10,7 +10,7 @@ import PokemonCards from "./PokemonCards"
 
 const Explore = () => {
   return (
-    <div tw="flex flex-1 flex-col h-screen justify-between bg-blue-100">
+    <div tw="flex flex-1 flex-col h-screen justify-start bg-blue-100">
       <SearchPokemon />
       <PokemonCards />
     </div>

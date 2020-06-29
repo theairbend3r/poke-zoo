@@ -44,7 +44,7 @@ const UserInfo = () => {
   const maxPokemonHeight = Math.max(...pokemonHeightsArray)
 
   // p component
-  const Info = tw.p`m-1 p-2 bg-gray-800 flex flex-row items-center justify-around rounded md:text-xl lg:text-2xl`
+  const Info = tw.p`flex flex-row items-center justify-between m-1 p-2 bg-gray-800 text-gray-500 rounded text-base sm:text-lg md:text-xl lg:text-2xl`
 
   return (
     <div tw="flex flex-row justify-around items-center bg-blue-800 py-8 px-2 md:py-10 md:px-4">
@@ -57,46 +57,50 @@ const UserInfo = () => {
       <section tw="flex flex-1 flex-col sm:flex-row w-2/3 text-gray-100 justify-center items-center">
         <div tw="flex flex-row sm:flex-col">
           <Info>
-            <span tw="font-semibold text-lg m-1 p-1 sm:mx-2 sm:text-xl md:text-2xl lg:text-4xl">
+            <span tw="text-gray-100 font-semibold text-lg m-1 p-1 sm:mx-2 sm:text-xl md:text-2xl lg:text-4xl">
               {collections.length}
             </span>
             collections
           </Info>
           <Info>
-            <span tw="font-semibold text-lg m-1 p-1 sm:mx-2 sm:text-xl md:text-2xl lg:text-4xl">
+            <span tw="text-gray-100 font-semibold text-lg m-1 p-1 sm:mx-2 sm:text-xl md:text-2xl lg:text-4xl">
               {numPokemon}
             </span>
             pokemon
           </Info>
         </div>
-        <div tw="flex flex-row sm:flex-col">
-          <Info>
-            <span tw="font-semibold text-lg m-1 p-1 sm:mx-2 sm:text-xl md:text-2xl lg:text-4xl">
-              {minPokemonHeight}
-            </span>
-            min height
-          </Info>
-          <Info>
-            <span tw="font-semibold text-lg m-1 p-1 sm:mx-2 sm:text-xl md:text-2xl lg:text-4xl">
-              {maxPokemonHeight}
-            </span>
-            max height
-          </Info>
-        </div>
-        <div tw="flex flex-row sm:flex-col">
-          <Info>
-            <span tw="font-semibold text-lg m-1 p-1 sm:mx-2 sm:text-xl md:text-2xl lg:text-4xl">
-              {minPokemonWeight}
-            </span>
-            min weight
-          </Info>
-          <Info>
-            <span tw="font-semibold text-lg m-1 p-1 sm:mx-2 sm:text-xl md:text-2xl lg:text-4xl">
-              {maxPokemonWeight}
-            </span>
-            max weight
-          </Info>
-        </div>
+        {numPokemon !== 0 && (
+          <div tw="flex flex-col sm:flex-row">
+            <div tw="flex flex-row sm:flex-col">
+              <Info>
+                <span tw="text-gray-100 font-semibold text-lg m-1 p-1 sm:mx-2 sm:text-xl md:text-2xl lg:text-4xl">
+                  {minPokemonHeight}
+                </span>
+                min height
+              </Info>
+              <Info>
+                <span tw="text-gray-100 font-semibold text-lg m-1 p-1 sm:mx-2 sm:text-xl md:text-2xl lg:text-4xl">
+                  {maxPokemonHeight}
+                </span>
+                max height
+              </Info>
+            </div>
+            <div tw="flex flex-row sm:flex-col">
+              <Info>
+                <span tw="text-gray-100 font-semibold text-lg m-1 p-1 sm:mx-2 sm:text-xl md:text-2xl lg:text-4xl">
+                  {minPokemonWeight}
+                </span>
+                min weight
+              </Info>
+              <Info>
+                <span tw="text-gray-100 font-semibold text-lg m-1 p-1 sm:mx-2 sm:text-xl md:text-2xl lg:text-4xl">
+                  {maxPokemonWeight}
+                </span>
+                max weight
+              </Info>
+            </div>
+          </div>
+        )}
       </section>
     </div>
   )

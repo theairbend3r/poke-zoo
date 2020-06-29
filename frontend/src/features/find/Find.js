@@ -8,7 +8,7 @@ import SearchOutput from "./SearchOutput"
 
 const Find = () => {
   return (
-    <div tw="flex flex-1 flex-col h-screen justify-between bg-blue-100 overflow-y-auto">
+    <div tw="flex flex-1 flex-col h-screen justify-start bg-blue-100 overflow-y-auto">
       <ImageInput />
       <SearchOutput />
     </div>

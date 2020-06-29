@@ -16,7 +16,7 @@ const ImageInput = () => {
   return (
     <div tw="text-gray-100 bg-blue-800 py-8 px-2 md:py-10 md:px-4">
       <section tw="flex flex-col">
-        <h3 tw=" text-lg md:text-xl text-center">Search Pokemon by Image</h3>
+        <h3 tw=" text-lg md:text-xl text-center">Find Pokemon by Image</h3>
         <div tw="flex flex-col">
           <ul tw="flex flex-row text-gray-100 justify-center text-sm sm:text-base">
             <li>

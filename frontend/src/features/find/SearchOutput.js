@@ -92,7 +92,7 @@ const SearchOutput = () => {
   return (
     <div tw="flex flex-col text-center p-2 md:flex-row ">
       <div tw="md:w-1/2 m-1">
-        <h3 tw="bg-blue-700 mb-2 text-gray-100 font-semibold p-1 rounded">
+        <h3 tw="bg-gray-400 mb-2 text-gray-900 font-semibold p-1 rounded">
           Preview Input Image
         </h3>
         <div tw="flex flex-row justify-between p-1">
@@ -115,7 +115,7 @@ const SearchOutput = () => {
         </div>
       </div>
       <div tw="md:w-1/2 md:h-screen m-1 text-black">
-        <h3 tw="bg-blue-700 mb-2 text-gray-100 font-semibold p-1 rounded">
+        <h3 tw="bg-gray-400 mb-2 text-gray-900 font-semibold p-1 rounded">
           Search Results (top-6 matches)
         </h3>
         <div tw="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-2 gap-2 p-1">
