@@ -42,6 +42,8 @@ PokeZoo has a feature to identify Pokemon from images. It is trained to identify
 
 The inference happens on the browser. `WebGL` acceleration is used where available by `Tensorflow.js`.
 
+Here are the performance-metrics for the model.
+
 |              | precision | recall | f1-score | support |
 | ------------ | --------- | ------ | -------- | ------- |
 | accuracy     |           |        | 0.81     | 1355    |
