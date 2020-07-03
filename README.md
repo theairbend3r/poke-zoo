@@ -99,11 +99,11 @@ Following is the report of where it works and where it doesn't along with the be
 
 #### Comments
 
-|         |                                    Ubuntu                                    |                                   Windows                                    |                                    MacOS                                     |
-| :-----: | :--------------------------------------------------------------------------: | :--------------------------------------------------------------------------: | :--------------------------------------------------------------------------: |
-| Firefox | Predictions are always one step behin for both Captured and Uploaded images. | Predictions are always one step behin for both Captured and Uploaded images. | Predictions are always one step behin for both Captured and Uploaded images. |
-| Chrome  | Works only on Captured Images. Uploaded images give same predictions always. | Works only on Captured Images. Uploaded images give same predictions always. | Works only on Captured Images. Uploaded images give same predictions always. |
-| Safari  |                                      NA                                      |                                      NA                                      | Works only on Captured Images. Uploaded images give same predictions always. |
+|         |                                    Ubuntu                                     |                                    Windows                                    |                                     MacOS                                     |
+| :-----: | :---------------------------------------------------------------------------: | :---------------------------------------------------------------------------: | :---------------------------------------------------------------------------: |
+| Firefox | Predictions are always one step behind for both Captured and Uploaded images. | Predictions are always one step behind for both Captured and Uploaded images. | Predictions are always one step behind for both Captured and Uploaded images. |
+| Chrome  | Works only on Captured Images. Uploaded images give same predictions always.  | Works only on Captured Images. Uploaded images give same predictions always.  | Works only on Captured Images. Uploaded images give same predictions always.  |
+| Safari  |                                      NA                                       |                                      NA                                       | Works only on Captured Images. Uploaded images give same predictions always.  |
 
 ### Mobile
 
