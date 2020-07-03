@@ -35,22 +35,20 @@ const ImageInput = () => {
                 capture image
               </InputListButton>
             </li>
-            <li>
+            {/* <li>
               <InputListButton
                 activeButton={inputType === "image_link"}
                 onClick={() => setInputType("image_link")}
               >
                 image link
               </InputListButton>
-            </li>
+            </li> */}
           </ul>
           <div tw="text-center">
             {inputType === "upload_image" ? (
               <UploadImageComponent />
             ) : inputType === "capture_image" ? (
               <CaptureImageComponent />
-            ) : inputType === "image_link" ? (
-              <ImageLinkComponent />
             ) : (
               <div> CANNOT DISPLAY INPUT COMPONENTS </div>
             )}
@@ -60,5 +58,9 @@ const ImageInput = () => {
     </div>
   )
 }
+
+// : inputType === "image_link" ? (
+//   <ImageLinkComponent />
+// )
 
 export default ImageInput
