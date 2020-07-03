@@ -22,7 +22,7 @@ This webapp is hosted on `Heroku` using a CI-CD pipeline thorugh `Github`.
 
 PokeZoo has a feature to identify Pokemon from images. It is trained to identify **150** Pokemon. The model used is a pre-trained `Mobilenet` fine-tuned using `Tensorflow` (using `Python` and `Docker`) on a Pokemon images dataset. This model was then converted to `Tensorflow.js` which runs on the browser.
 
-Yes, deep learning inference happens on the browser.
+Deep learning inference happens on the browser.
 
 |              | precision | recall | f1-score | support |
 | ------------ | --------- | ------ | -------- | ------- |
@@ -30,7 +30,58 @@ Yes, deep learning inference happens on the browser.
 | macro avg    | 0.82      | 0.81   | 0.80     | 1355    |
 | weighted avg | 0.82      | 0.81   | 0.81     | 1355    |
 
-There are some platform issues where the Inference does not run properly on certain browsers/OS.
+There are some platform issues where the Inference does not run properly on certain combinations of device + browser + image input type.
+
+Here's an in-depth report of where it works.
+
+**TLDR;**
+
+Following combinations of device + browser + image input are working -
+
+| Device  |   OS    | Browser | Input Method |
+| ------- | :-----: | :-----: | :----------: |
+| Desktop | Windows | Chrome  |    Webcam    |
+| Desktop |  MacOS  | Chrome  |    Webcam    |
+| Desktop |  MacOS  | Safari  |    Webcam    |
+| Mobile  | Android | Firefox |    Upload    |
+| Mobile  | Android | Chrome  |    Webcam    |
+| Mobile  |   iOS   | Safari  |    Webcam    |
+
+### Desktop
+
+#### Table
+
+|         |   Ubuntu    |     Windows      |      MacOS       |
+| ------- | :---------: | :--------------: | :--------------: |
+| Firefox | not working |   not working    |   not working    |
+| Chrome  | not working | somewhat working | somewhat working |
+| Safari  |     NA      |        NA        | somewhat working |
+
+#### Comments
+
+|         |                                    Ubuntu                                    |                                   Windows                                    |                                    MacOS                                     |     |
+| ------- | :--------------------------------------------------------------------------: | :--------------------------------------------------------------------------: | :--------------------------------------------------------------------------: | --- |
+| Firefox | Predictions are always one step behin for both Captured and Uploaded images. | Predictions are always one step behin for both Captured and Uploaded images. | Predictions are always one step behin for both Captured and Uploaded images. |     |
+| Chrome  | Works only on Captured Images. Uploaded images give same predictions always. | Works only on Captured Images. Uploaded images give same predictions always. |                        Works only on Captured Images.                        |     |
+| Safari  |                                      NA                                      |                                      NA                                      |                        Works only on Captured Images.                        |     |
+
+### Mobile
+
+#### Table
+
+|         |     Android      |       iOS        |
+| ------- | :--------------: | :--------------: |
+| Firefox | somewhat working |   not working    |
+| Chrome  | somewhat working |   not working    |
+| Safari  |        NA        | somewhat working |
+
+#### Comments
+
+|         |                                   Android                                   |                                     iOS                                      |     |
+| ------- | :-------------------------------------------------------------------------: | :--------------------------------------------------------------------------: | :-: |
+| Firefox |  No predictions load for a captured image. Works on uploaded images only.   |     Camera does not load. Uploaded images give same predictions always.      |     |
+| Chrome  | Works on capture images only. Uploaded images give same predictions always. |     Camera does not load. Uploaded images give same predictions always.      |     |
+| Safari  |                                     NA                                      | Works only on Captured Images. Uploaded images give same predictions always. |     |
 
 ## Screenshots
 
