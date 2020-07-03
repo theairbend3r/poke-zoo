@@ -23,6 +23,9 @@ const PokemonCardML = props => {
     pokemon: {
       pokeName: "",
       pokeUrl: "",
+      pokeType: "",
+      pokeHeight: 0,
+      pokeWeight: 0,
     },
   })
 
@@ -34,6 +37,9 @@ const PokemonCardML = props => {
       pokemon: {
         pokeName: pokemonName,
         pokeUrl: pokemonSprite,
+        pokeType: pokemonType,
+        pokeHeight: pokemonHeight,
+        pokeWeight: pokemonWeight,
       },
     })
   }
@@ -46,6 +52,9 @@ const PokemonCardML = props => {
       pokemon: {
         pokeName: "",
         pokeUrl: "",
+        pokeType: "",
+        pokeHeight: 0,
+        pokeWeight: 0,
       },
     })
   }
