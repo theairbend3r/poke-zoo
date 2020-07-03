@@ -48,13 +48,31 @@ The inference happens on the browser. `WebGL` acceleration is used where availab
 | macro avg    | 0.82      | 0.81   | 0.80     | 1355    |
 | weighted avg | 0.82      | 0.81   | 0.81     | 1355    |
 
+## Screenshots
+
+### Landing Page
+
+![Landing Page](https://raw.githubusercontent.com/theairbend3r/poke-zoo/master/screenshots/poke-zoo-landing.jpg)
+
+### Home Page
+
+![Home Page](https://raw.githubusercontent.com/theairbend3r/poke-zoo/master/screenshots/poke-zoo-home.png)
+
+### Explore Page
+
+![Explore Page](https://raw.githubusercontent.com/theairbend3r/poke-zoo/master/screenshots/poke-zoo-explore.png)
+
+### Find Page
+
+![Find Page](https://raw.githubusercontent.com/theairbend3r/poke-zoo/master/screenshots/poke-zoo-find.png)
+
 ## Platform Issues
 
 There are some platform issues where the Inference does not run properly on certain combinations of _device + browser + image input type_.
 
 **TLDR;**
 
-Following combinations of _device + browser + image input_ are working -
+Following combinations of _device + browser + image input_ are **working** -
 
 | Device  |   OS    | Browser | Input Method |
 | ------- | :-----: | :-----: | :----------: |
@@ -102,21 +120,3 @@ Following is the report of where it works and where it doesn't along with the be
 | Firefox | No predictions load for a captured image. Works on uploaded images only.    | Camera does not load. Uploaded images give same predictions always.          |
 | Chrome  | Works on capture images only. Uploaded images give same predictions always. | Camera does not load. Uploaded images give same predictions always.          |
 | Safari  | NA                                                                          | Works only on Captured Images. Uploaded images give same predictions always. |
-
-## Screenshots
-
-### Landing Page
-
-![Landing Page](https://raw.githubusercontent.com/theairbend3r/poke-zoo/master/screenshots/poke-zoo-landing.jpg)
-
-### Home Page
-
-![Home Page](https://raw.githubusercontent.com/theairbend3r/poke-zoo/master/screenshots/poke-zoo-home.png)
-
-### Explore Page
-
-![Explore Page](https://raw.githubusercontent.com/theairbend3r/poke-zoo/master/screenshots/poke-zoo-explore.png)
-
-### Find Page
-
-![Find Page](https://raw.githubusercontent.com/theairbend3r/poke-zoo/master/screenshots/poke-zoo-find.png)
