@@ -5,6 +5,7 @@
 PokeZoo is webapp that enables users to create their own Pokemon collections by identifying Pokemon from images using deep learning.
 
 ![App Flow](https://raw.githubusercontent.com/theairbend3r/poke-zoo/master/screenshots/poke-zoo-ml.gif)
+![App Flow](https://raw.githubusercontent.com/theairbend3r/poke-zoo/master/screenshots/pokezoo-mobile-compressed.gif)
 
 ## Tech Stack
 
