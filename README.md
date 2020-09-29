@@ -5,7 +5,6 @@
 PokeZoo is webapp that enables users to create their own Pokemon collections by identifying Pokemon from images using deep learning.
 
 ![App Flow](https://raw.githubusercontent.com/theairbend3r/poke-zoo/master/screenshots/poke-zoo-ml.gif)
-![App Flow](https://raw.githubusercontent.com/theairbend3r/poke-zoo/master/screenshots/pokezoo-mobile-compressed.gif)
 
 ## Tech Stack
 
@@ -38,6 +37,8 @@ The application features are as follows -
 7. The output shows the 6 closest matches for a given Pokemon image.
 
 ## Deep Learning
+
+![App Flow](https://raw.githubusercontent.com/theairbend3r/poke-zoo/master/screenshots/pokezoo-mobile-compressed.gif)
 
 PokeZoo has a feature to identify Pokemon from images. It is trained to identify **150** Pokemon. The model used is a pre-trained `Mobilenet` fine-tuned using `Tensorflow` (using `Python` and `Docker`) on a Pokemon images dataset. This model was then converted to `Tensorflow.js` which runs on the browser.
 
