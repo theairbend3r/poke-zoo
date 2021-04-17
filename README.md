@@ -6,6 +6,11 @@ PokeZoo is webapp that enables users to create their own Pokemon collections by 
 
 ![App Flow](https://raw.githubusercontent.com/theairbend3r/poke-zoo/master/screenshots/poke-zoo-ml.gif)
 
+You can either create a new username/password or use the following -
+
+username: `test`  
+password: `test123`
+
 ## Tech Stack
 
 This webapp is hosted on `Heroku`. All features are added using a CI-CD pipeline through `Github`.
