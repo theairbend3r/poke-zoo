@@ -50,5 +50,8 @@
   },
   "devDependencies": {
     "@svgr/cli": "^5.5.0"
+  },
+  "engines": {
+    "node": ">=14.20.1"
   }
 }
