@@ -8,8 +8,8 @@ PokeZoo is webapp that enables users to create their own Pokemon collections by 
 
 You can either create a new username/password or use the following -
 
-username: `ramos`  
-password: `ramos1234`
+username: `test`  
+password: `test12345`
 
 ## Tech Stack
 
